@@ -1,0 +1,135 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{%static 'users/style11.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<div class="d-md-inline-flex" style="width: 100%; margin-top: 6%;">
+    <div id="users">
+        <h5><b>Количество пользователей</b></h5>
+        <h1>{{count_users}}</h1>
+    </div>
+    <div id="students">
+        <h5><b>Количество студентов</b></h5>
+        <h1>6</h1>
+    </div>
+    <div id="mentors">
+        <h5><b>Количество менторов</b></h5>
+        <h1>1</h1>
+    </div>
+</div>
+<div class="d-md-inline-flex" style="width: 100%; margin-top: 5%; margin-left: 8%">
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+    <canvas id="myChart1" style="width:100%;max-width:600px"></canvas>
+</div>
+<div class="container" style="align-content: center; text-align: center">
+    <h1>Доходы Studentor</h1>
+    <div class="d-md-inline-flex" style="width: 100%; margin-top: 5%; margin-left: 4%">
+        <canvas id="myChart2" style="width:100%;max-width:600px; margin-right: 2%"></canvas>
+        <canvas id="myChart3" style="width:100%;max-width:600px"></canvas>
+    </div>
+</div>
+<script>
+    var xValues = ["Нур-Султан", "Алматы", "Шымкент", "Орал", "Семей"];
+    var yValues = [1, 2, 2, 1, 1];
+    var barColors = [
+        "#120078",
+        "#9D0191",
+        "#FD3A69",
+        "#FECD1A",
+        "#1e7145"
+    ];
+
+    new Chart("myChart", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Города пользователей"
+            }
+        }
+    });
+
+    var xValues1 = ["Nazarbayev University", "Astana IT University", "Suleyman Demirel University"];
+    var yValues1 = [3, 3, 1];
+    var barColors1 = [
+        "#9EDE73",
+        "#F7EA00",
+        "#E48900",
+        "#BE0000",
+        "#FF884B"
+    ];
+
+    new Chart("myChart1", {
+        type: "pie",
+        data: {
+            labels: xValues1,
+            datasets: [{
+                backgroundColor: barColors1,
+                data: yValues1
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Университеты пользователей"
+            }
+        }
+    });
+
+    var xValues2 = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+    var yValues2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+    new Chart("myChart2", {
+        type: "line",
+        data: {
+            labels: xValues2,
+            datasets: [{
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "rgba(0,0,255,1.0)",
+                borderColor: "rgba(0,0,255,0.1)",
+                data: yValues2
+            }]
+        },
+        options: {
+            legend: {display: false},
+            scales: {
+                yAxes: [{ticks: {min: 2, max: 12}}],
+            }
+        }
+    });
+
+    var xValues3 = [1, 2, 3, 4, 5, 6];
+
+    new Chart("myChart3", {
+        type: "line",
+        data: {
+            labels: xValues3,
+            datasets: [{
+                data: [860, 1140, 1060],
+                borderColor: "red",
+                fill: false
+            }, {
+                data: [1600, 1700, 1700],
+                borderColor: "green",
+                fill: false
+            }, {
+                data: [300, 700, 2000],
+                borderColor: "blue",
+                fill: false
+            }]
+        },
+        options: {
+            legend: {display: false}
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% load static %}
+{% extends 'main/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>{% block title %}{% endblock %}</title>
+    <meta content="" name="description">
+
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    {% load static %}
+    <link href="{% static 'main/img/logoStud.jpeg' %}" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'main/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/vendor/bootstrap/css/bootstrap-grid.rtl.css' %}">
+</head>
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+        <a href="#" class="logo d-flex align-items-center">
+            <span>Studentor</span>
+        </a>
+
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="nav-link scrollto active" href="{% url 'main' %}">Главная</a></li>
+                <!--<li><a class="nav-link scrollto" href="{% url 'about' %}">О нас</a></li>-->
+                <li><a class="nav-link scrollto" href="#about">О нас</a></li>
+                <!--<li><a class="nav-link scrollto" href="{% url 'celebrity' %}">StudCoins</a></li>-->
+                <li><a class="nav-link scrollto" href="#features">StudCoins</a></li>
+                <li><a class="nav-link scrollto" href="#team">Наши спонсоры</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'register' %}">Задать вопрос</a></li>
+                <!--<li><a class="getstarted scrollto" href="{% url 'login' %}">Войти</a></li>-->
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{request.user}}<img class="rounded-circle"
+                                                      src="https://pics.freeicons.io/uploads/icons/png/19339625881548233621-512.png"
+                                                      width="30" height="30" alt="profile"><span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
+                            <a class="nav-link" href="{% url 'signin' %}">Войти</a>
+
+                        </ul>
+                    </li>
+                </ul>
+
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+    </div>
+</header><!-- End Header -->
+<main class="main">
+    {%block content%}{% endblock %}
+</main>
+</body>
+</html>
+

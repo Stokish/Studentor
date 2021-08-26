@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{%static 'css/style11.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<div class="d-md-inline-flex" style="width: 100%; margin-top: 5%">
+    <div id="users">
+        <p>{{user.all.count}}</p>
+    </div>
+    <div id="students">
+        <p>lo</p>
+    </div>
+    <div id="mentors">
+        <p>lo</p>
+    </div>
+</div>
+{% endblock %}

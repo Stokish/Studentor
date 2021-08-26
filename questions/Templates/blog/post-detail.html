@@ -1,0 +1,181 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load sweetify %}
+{% sweetify %}
+
+<link href="{% static 'css/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<div class="footer-newsletter" style="margin-top: 10%;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center">
+                <h3>Вместе со Studentor к уверенному будущему</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<article class="media content-section">
+    <div class="media-body">
+
+        <div class="container mt-5">
+            <div class="d-flex justify-content-center row" style="border: black">
+                <div class="col-md-8 border">
+                    <div class="d-flex flex-column comment-section">
+                        <div class="bg-white p-2">
+                            <div class="article-metadata">
+                                <img class="rounded-circle" src="{{ object.author.profile.image.url }}"
+                                     width="40"
+                                     height="40">
+                                <a class="mr-2" href="{% url 'profilePlace' object.author.profile.pk %}">
+                                    {{ object.author }}</a>
+                                <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+                                {% if object.author == user %}
+                                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+                                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+                                {% endif %}
+                                <h2>{{ object.subject }}</h2>
+                                <p class="article-content">{{ object.question }}</p>
+
+                                <hr>
+
+                                <p>Ответы ({{object.comments_post.all.count}})
+                                </p>
+                                <div class="col-md-12">
+                                    {% for item in object.comments_post.all%}
+                                    {% if item.is_parent %}
+                                    <div class="d-flex flex-column comment-section">
+                                        <div class="bg-white p-2">
+                                            <div class="d-flex flex-row user-info">
+                                                <img class="rounded-circle"
+                                                     src="{{ item.author.profile.image.url }}"
+                                                     width="40"
+                                                     height="40">
+                                                <div class="d-flex flex-column justify-content-start ml-2">
+                                                    <span class="d-block font-weight-bold name px-2"><a
+                                                            href="{% url 'profilePlace' item.author.profile.pk %}">{{ item.author }}</a></span>
+                                                    <span class="date text-black-50 px-2">{{item.create_date}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <p class="comment-text"> {{ item.text }}</p>
+                                        </div>
+                                        <div class="d-flex flex-row" style="margin-left: 80%">
+                                            <form method="POST"
+                                                  action="{% url 'comment-like' object.pk item.pk %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="next" value="{{ request.path }}">
+                                                <button class="remove-default-btn btn-success" type="submit">
+                                                    <img src="https://pngimg.com/uploads/like/like_PNG13.png" width="15"
+                                                         height="15">
+                                                    <span>{{ item.likes.all.count }}</span></i>
+                                                </button>
+                                            </form>
+
+                                            <form method="POST"
+                                                  action="{% url 'comment-dislike' object.pk item.pk %}"
+                                                  style="margin-left: 5px">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="next" value="{{ request.path }}">
+                                                <button class="remove-default-btn btn-danger" type="submit">
+                                                    <img src="https://www.pngrepo.com/download/221123/dislike.png"
+                                                         width="15" height="15">
+                                                    <span>{{ item.dislikes.all.count }}</span></i>
+                                                </button>
+                                            </form>
+                                            <button class="remove-default-btn btn-info" onclick="commentReplyToggle()"
+                                                    style="margin-left: 5px">
+                                                <img src="https://cdn4.iconfinder.com/data/icons/pictype-free-vector-icons/16/reply-512.png"
+                                                     width="15" height="15">
+                                            </button>
+                                        </div>
+                                           {% if request.user == user and item.likes.all.count == 5 %}
+                                            <div class="alert alert-success" style="margin-top: 2%" role="alert">
+                                                <b>{{item.author}}</b> получила <b><i>10</i></b> Stud coins
+                                            </div>
+                                            {%endif%}
+                                        <div>
+                                            <div id="reply">
+                                                <div class="col-md-10 col-sm-10">
+                                                    <form method="POST"
+                                                          action="{% url 'comment-reply' object.pk item.pk %}">
+                                                        {% csrf_token %}
+                                                        {{ form }}
+                                                        <div class="d-grid gap-2">
+                                                            <button class="btn btn-success mt-3">Submit!</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                function commentReplyToggle() {
+                                                    var x = document.getElementById("reply")
+                                                    if (x.style.display === "none") {
+                                                        x.style.display = "block";
+                                                    } else {
+                                                        x.style.display = "none";
+                                                    }
+                                                }
+                                            </script>
+                                            {% for child_comments in item.children %}
+                                            <div class="row justify-content mt-3 mb-5 child-comment"
+                                                 style="margin-left: 20px">
+                                                <div class="col-md-5 col-sm-12 border-bottom">
+                                                    <div>
+                                                        <div class="d-flex flex-row user-info">
+                                                            <img class="rounded-circle"
+                                                                 src="{{ child_comments.author.profile.image.url }}"
+                                                                 width="40"
+                                                                 height="40">
+                                                            <div class="d-flex flex-column justify-content-start ml-2">
+                                                                <span class="d-block font-weight-bold name px-2"><a
+                                                                        href="{% url 'profilePlace' child_comments.author.profile.pk %}">{{ child_comments.author }}</a></span>
+                                                                <span class="date text-black-50 px-2">{{child_comments.create_date}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-2">
+                                                            <p class="comment-text"> {{ child_comments.text }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {%endfor%}
+                                    <h4>Оставьте ваши ответы!</h4>
+                                    <div id="comments_section">
+                                        {% if user.is_authenticated %}
+                                        <form action="" id="add_form" method="post">
+                                            {% csrf_token %}
+                                            {{ form.as_p }}
+                                        </form>
+                                        <button form="add_form" type="submit"
+                                                class="btn btn-outline-success mt-3">Ответить
+                                        </button>
+                                        {% else %}
+                                        <a class="btn btn-outline-info"
+                                           href="{% url 'signin' %}?next={{request.path}}">Авторизуйтесь
+                                            для ответа!</a><br>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</article>
+<script type="text/javascript" src="{% static 'js/social.js' %}"></script>
+{% endblock content %}

@@ -1,0 +1,66 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="#" style="margin-left: 5%; font-family: Brush Script MT,cursive">Blog World</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'blog-home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#"></a>
+            </li>
+        </ul>
+        <span class="username" style="padding-right: 5%"> Hello, {{request.user}}</span>
+        <span><a href="{% url 'post-create' %}" style="padding-right: 20px">Add new Blog</a> </span>
+
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                   aria-expanded="false">Profile<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                    <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+{% for post in posts %}
+<div class="container" style="margin-left: 20px">
+    <div class="row d-flex">
+        <div class="col-xl-8 py-5 px-md-5">
+            <div class="row pt-md-4">
+                <div class="col" style="background-color: #e3f2fd">
+                    <div class="blog-entry ftco-animate d-md-flex">
+                        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"
+                             style="height: 120px; width: 120px">
+                        <div class="text text-2 pl-md-4">
+                            <h3 class="mb-2" style="font-family: Cambria,serif"><a href="">{{ post.title }}</a></h3>
+                            <div class="meta-wrap">
+                                <p class="meta">
+                                    <span><i class="icon-calendar mr-2"></i>{{ post.date_posted|date:"F d, Y" }}</span>
+                                    <span><a href=""><i class="icon-folder-o mr-2"></i>{{ post.author }}</a></span>
+                                </p>
+                            </div>
+                            <p class="mb-4">{{ post.content }}</p>
+                            <p><a href="{% url 'post-detail' post.id %}" class="btn-custom">Read More <span
+                                    class="ion-ios-arrow-forward"></span></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+{% endblock content %}

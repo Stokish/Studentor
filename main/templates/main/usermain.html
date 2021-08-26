@@ -1,0 +1,329 @@
+{% extends 'main/base.html' %}
+{% block title %}
+Main
+{% endblock %}
+{% block content %}
+{% load static %}
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero d-flex align-items-center">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <h1>Облегчение жизни студентов</h1>
+                <h2>Мы команда, которая поможет каждому студенту</h2>
+                <div>
+                    <div class="text-center text-lg-start">
+                        <a href="{% url 'signin' %}"
+                           class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                            <span>Studentor</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 hero-img">
+                {% load static %}
+                <img src="{% static 'main/img/main.png'%}" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+</section><!-- End Hero -->
+
+<!-- ======= About Section ======= -->
+<section id="about" class="about">
+    <div class="container">
+        <div class="row gx-0">
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <div class="content">
+                    <h3>Выбирай Studentor</h3>
+                    <h2>Обучайся эффективно с единомышленниками вместе с Studentor</h2>
+                    <p>
+                        Найди своего единомышленника с любой точки мира и получи нужные знания за быстрое время, а
+                        помогая другим получай скидки и бесплатные услуги магазинов вместе с Studentor.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center">
+                {% load static %}
+                <img src="{% static 'main/img/features-2.png' %}" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+
+</section><!-- End About Section -->
+
+<!-- ======= Features Section ======= -->
+<section id="features" class="features">
+
+    <div class="container">
+
+        <!-- Feature Icons -->
+        <div class="row feature-icons">
+            <h3>Возможности от Studentor</h3>
+
+            <div class="row">
+
+                <div class="col-xl-4 text-center">
+                    {% load static %}
+                    <img src="{% static 'main/img/features-3.png' %}" class="img-fluid p-4" alt="">
+                </div>
+
+                <div class="col-xl-8 d-flex content">
+                    <div class="row align-self-center gy-4">
+
+                        <div class="col-md-6 icon-box">
+                            <i class="ri-line-chart-line"></i>
+                            <div>
+                                <p>Обучение проблемной дисциплины с ментором</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 icon-box">
+                            <i class="ri-stack-line"></i>
+                            <div>
+                                <p>Задать вопросы и получить ответы за быстрое время</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 icon-box">
+                            <i class="ri-brush-4-line"></i>
+                            <div>
+                                <p>Быть ментором студентам как вы</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 icon-box">
+                            <i class="ri-magic-line"></i>
+                            <div>
+                                <p>Участие на различных учебных вебинарах</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 icon-box">
+                            <i class="ri-command-line"></i>
+                            <div>
+                                <p>Заработать StudCoin для обмена у партнеров Studentor</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div><!-- End Feature Icons -->
+
+        <div class="row gx-0">
+            <div class="row feature-icons">
+                <h3>Про StudCoins</h3>
+            </div>
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+
+                <div class="content">
+                    <h3>Валюта нашей платформы - StudCoin</h3>
+                    <p>
+                        С помощью StudCoin’а Вы можете назначать вознаграждение за ответ на Ваш вопрос, получать
+                        материалы за указанное владельцом количество StudCoin’ов или обменивать StudCoin’ы у партнеров
+                        Studentor👥
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center">
+                {% load static %}
+                <img src="{% static 'main/img/coins.png' %}" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+
+
+</section><!-- End Features Section -->
+
+<!-- ======= Services Section ======= -->
+<section id="services" class="services">
+
+    <div class="container">
+
+        <header class="section-header">
+            <h2>Services</h2>
+            <p>Studentor - student and mentor</p>
+        </header>
+
+        <div class="row gy-4">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-box blue">
+                    <i class="ri-discuss-line icon"></i>
+                    <h3>Live community</h3>
+                    <p>Count your blessings, not your problems. Your works at late nights and early mornings will give
+                        results.</p>
+                    <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-box orange">
+                    <i class="ri-discuss-line icon"></i>
+                    <h3>Expert quality</h3>
+                    <p>Count your blessings, not your problems. Your works at late nights and early mornings will give
+                        results.</p>
+                    <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-box green">
+                    <i class="ri-discuss-line icon"></i>
+                    <h3>Fast B+</h3>
+                    <p>Count your blessings, not your problems. Your works at late nights and early mornings will give
+                        results.</p>
+                    <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-box red">
+                    <i class="ri-discuss-line icon"></i>
+                    <h3>Sales and presents</h3>
+                    <p>Count your blessings, not your problems. Your works at late nights and early mornings will give
+                        results.</p>
+                    <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-box purple">
+                    <i class="ri-discuss-line icon"></i>
+                    <h3>Build successful career</h3>
+                    <p>Count your blessings, not your problems. Your works at late nights and early mornings will give
+                        results.</p>
+                    <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-box pink">
+                    <i class="ri-discuss-line icon"></i>
+                    <h3>Make students life easier</h3>
+                    <p>Count your blessings, not your problems. Your works at late nights and early mornings will give
+                        results.</p>
+                    <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section><!-- End Services Section -->
+
+<!-- ======= Clients Section ======= -->
+<section id="clients" class="clients">
+
+    <div class="container">
+
+        <header class="section-header">
+            <h2>Спонсортсво</h2>
+            <p>Наши спонсоры</p>
+        </header>
+
+        <div class="clients-slider swiper-container">
+            <div class="swiper-wrapper align-items-center">
+                <div class="swiper-slide"><img src="{% static 'main/img/pricing-free.png' %}" class="img-fluid" alt="">
+                </div>
+                <div class="swiper-slide"><img src="{% static 'main/img/pricing-free.png' %}" class="img-fluid" alt="">
+                </div>
+                <div class="swiper-slide"><img src="{% static 'main/img/pricing-free.png' %}" class="img-fluid" alt="">
+                </div>
+                <div class="swiper-slide"><img src="{% static 'main/img/pricing-free.png' %}" class="img-fluid" alt="">
+                </div>
+                <div class="swiper-slide"><img src="{% static 'main/img/pricing-free.png' %}" class="img-fluid" alt="">
+                </div>
+                <div class="swiper-slide"><img src="{% static 'main/img/pricing-free.png' %}" class="img-fluid" alt="">
+                </div>
+                <div class="swiper-slide"><img src="{% static 'main/img/pricing-free.png' %}" class="img-fluid" alt="">
+                </div>
+                <div class="swiper-slide"><img src="{% static 'main/img/pricing-free.png' %}" class="img-fluid" alt="">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+</section><!-- End Clients Section -->
+
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+
+    <div class="footer-newsletter">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <h3>Вместе со Studentor к уверенному будущему</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-top">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-5 col-md-12 footer-info">
+                    <a href="{% url 'main' %}" class="logo d-flex align-items-center">
+                        <span>Studentor</span>
+                    </a>
+                    <p>Studentor – платформа , которая имеет правильное менторства для учебы от разных точек
+                        мира с доступной ценой, где каждый обменивает знания на бонусы от наших партнеров.</p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.instagram.com/studentor.kz/?hl=ru" class="instagram"><i
+                                class="bi bi-instagram bx bxl-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-6 footer-links">
+                    <h4>Полезные ссылки</h4>
+                    <ul>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{% url 'main' %}">Главная</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#about">О нас</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#features">Возможности Studentor</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{% url 'create' %}">Задать Вопрос</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Быть Ментором</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+                    <h4>Наши контакты</h4>
+                    <p>
+                        <strong>Google Email:</strong> studentor.kz@gmail.com<br>
+                        <strong>Mail Email:</strong> studentor.kz@mail.ru<br>
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>Studentor</span></strong>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+<!-- Vendor JS Files -->
+<script src="{% static 'main/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'main/vendor/aos/aos.js' %}"></script>
+<script src="{% static 'main/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'main/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'main/vendor/purecounter/purecounter.js' %}"></script>
+<script src="{% static 'main/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'main/vendor/glightbox/js/glightbox.min.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'main/js/main.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+{% block title %}
+About us
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="card" style="width:400px">
+    <img class="card-img-top" src="https://media.allure.com/photos/5d601b3e531caa0008cbc17c/3:4/w_1279,h_1705,c_limit/IU%20at%20a%20press%20conference.jpg" alt="Card image" style="width:100%">
+    <div class="card-body">
+      <h4 class="card-title">John Doe</h4>
+      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+      <a href="#" class="btn btn-primary">See Profile</a>
+    </div>
+  </div>
+  <br>
+
+  <p>Image at the bottom (card-img-bottom):</p>
+  <div class="card" style="width:400px">
+    <div class="card-body">
+      <h4 class="card-title">Jane Doe</h4>
+      <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
+      <a href="#" class="btn btn-primary">See Profile</a>
+    </div>
+    <img class="card-img-bottom" src="https://i.mydramalist.com/RRV4Y_5f.jpg" alt="Card image" style="width:100%">
+  </div>
+</div>
+{% endblock %}

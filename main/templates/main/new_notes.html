@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+{% block title %}
+Create notes
+{% endblock %}
+{% block content %}
+<section id="hero" class="hero d-flex align-items-center">
+<form method="post" class="php-email-form" style="margin-top: 10%; margin-left: 10%; width: 50%;">
+
+    {% csrf_token %}
+    <div class="row gy-4">
+        {{ form.title }}<br>
+        {{ form.task }}<br>
+        <button type="submit" class="btn btn-success">Задать вопрос</button>
+        <span>{{error}}</span>
+    </div>
+</form>
+</section>
+{% endblock %}

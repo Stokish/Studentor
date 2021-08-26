@@ -1,0 +1,417 @@
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <title> User Profile </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="{% static 'users/profileStyle.css'%}" rel="stylesheet">
+</head>
+<body>
+<div class="container-md" style="margin-left: 30px; margin-right: 30px">
+    <div>
+        <!-- Breadcrumb  -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'main'%}">Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'blog-home'%}">FAQ</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'main'%}">Найти ментора</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'post-create' %}">Задать вопрос</a>
+                </li>
+                <li class="breadcrumb-item"><a href="{% url 'signout'%}" style="color: darkred">Выйти</a></li>
+
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+
+        <div class="row gutters-sm">
+            <!-- 2 - Second column  -->
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="{{user.profile.image.url }}" alt="Admin" class="rounded-circle" width="160"
+                                 height="160">
+
+                            <div class="mt-3">
+                                <h4> {{ user.username }} </h4>
+                                <p class="text-secondary mb-1"> {{ user.profile.university }} </p>
+                                <p class="text-muted font-size-sm">{{ user.profile.address }}</p>
+                                {% if request.user == user %}
+                                <button class="btn btn-primary"><a href="{% url 'update_profile'%}"
+                                                                   style="text-decoration: none; color: white">Изменить
+                                    профиль</a>
+                                </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                </svg>
+                                Ссылки
+                            </h6>
+                            <span class="text-secondary">{{ user.profile.website }}</span>
+                            <br>
+                        </li>
+                    </ul>
+                    <div class="mb-3">
+                        <a href="{% url 'list-followers' user.pk %}" class="post-link">Followers: 1</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 - Third column Профиль  -->
+            <div id="Profile" class="col-md-7" style="margin-left: 5%">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5 class="profile">Профиль</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0"> Имя </h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{user.first_name}} {{user.last_name}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">E-mail</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ user.email }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Номер телефона</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ user.profile.telephone }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Адрес</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ user.profile.address }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">О себе:</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ user.profile.bio }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <!-- 1 - количество ююю -->
+                            <div class="col-sm-3">
+                                <div class="row" style="margin-left: 10px">
+                                    <img src="https://image.flaticon.com/icons/png/128/3012/3012373.png"
+                                         alt="percentage" class="rounded-circle" width="40">
+                                    <div style="width:15px;"></div>
+                                    <h5 style="color: #5e5eff; ">56</h5>
+                                </div>
+                                <div class="w-100"></div>
+                                <br>
+                                <p style="font-family: Verdana, sans-serif">
+                                    Количество уроков
+                                </p>
+                            </div>
+                            <!-- 2- рейтинг среди остальных -->
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <img src="https://image.flaticon.com/icons/png/128/3237/3237420.png"
+                                         alt="percentage" class="rounded-circle" width="40">
+                                    <div style="width:15px;"></div>
+                                    <h5 style="color: #5e5eff"> 124 <sup>th</sup></h5>
+                                </div>
+                                <div class="w-100"></div>
+                                <br>
+                                <p style="font-family: Verdana, sans-serif">
+                                    Место среди лучших
+                                </p>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <img src="https://png.pngtree.com/element_our/20190603/ourlarge/pngtree-stacked-gold-coins-free-of-png-image_1442113.jpg"
+                                         class="rounded-circle" width="40">
+                                    <div style="width:15px;"></div>
+                                    <h5 style="color: #5e5eff"> 2 </h5>
+                                </div>
+                                <div class="w-100"></div>
+                                <br>
+                                <p style="font-family: Verdana, sans-serif">
+                                    Studcoins
+                                </p>
+                            </div>
+                            <!-- 3 - количество студентов -->
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <img src="https://image.flaticon.com/icons/png/128/2302/2302834.png"
+                                         alt="percentage" class="rounded-circle" width="40">
+                                    <div style="width:15px;"></div>
+                                    <h5 style="color: #5e5eff"> 124 <sup>th</sup></h5>
+                                </div>
+                                <div class="w-100"></div>
+                                <br>
+                                <p style="font-family: Verdana, sans-serif">
+                                    Количество студентов
+                                </p>
+                            </div>
+                            <!-- 4 - правильные ответы -->
+                            <div class="col-sm-3" style="margin-left: 2%">
+                                <div class="row">
+                                    <img src="https://image.flaticon.com/icons/png/128/2893/2893506.png"
+                                         alt="percentage" class="rounded-circle" width="40">
+                                    <div style="width:15px;"></div>
+                                    <h5 style="color: #5e5eff"> 21 </h5>
+                                </div>
+                                <div class="w-100"></div>
+                                <br>
+                                <p style="font-family: Verdana, sans-serif">
+                                    Правильные ответы
+                                </p>
+                            </div>
+                        </div>
+                        <br>
+
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project
+                                Status</h6>
+                            <small>Web Design</small>
+                            <div class="progress mb-3" style="height: 5px">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
+                                     aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <small>Website Markup</small>
+                            <div class="progress mb-3" style="height: 5px">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
+                                     aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <small>One Page</small>
+                            <div class="progress mb-3" style="height: 5px">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
+                                     aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <small>Mobile Template</small>
+                            <div class="progress mb-3" style="height: 5px">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
+                                     aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <small>Backend API</small>
+                            <div class="progress mb-3" style="height: 5px">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
+                                     aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gutters-sm">
+                    <div class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project
+                                    Status</h6>
+                                <small>Web Design</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
+                                         aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>Website Markup</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
+                                         aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>One Page</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
+                                         aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>Mobile Template</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
+                                         aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>Backend API</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
+                                         aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project
+                                    Status</h6>
+                                <small>Web Design</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
+                                         aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>Website Markup</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
+                                         aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>One Page</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
+                                         aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>Mobile Template</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
+                                         aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>Backend API</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
+                                         aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 3 - Third column Настройки  -->
+            <div id="Settings" style="display:none; " class="col-md-7">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-6 border-right">
+                            <div class="p-3 py-5">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="text-right">Profile Settings</h4>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6"><label class="labels">Name</label><input type="text"
+                                                                                                   class="form-control"
+                                                                                                   placeholder="first name"
+                                                                                                   value=""></div>
+                                    <div class="col-md-6"><label class="labels">Surname</label><input type="text"
+                                                                                                      class="form-control"
+                                                                                                      value=""
+                                                                                                      placeholder="surname">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12"><label class="labels">PhoneNumber</label><input type="text"
+                                                                                                           class="form-control"
+                                                                                                           placeholder="enter phone number"
+                                                                                                           value="">
+                                    </div>
+                                    <div class="col-md-12"><label class="labels">Address</label><input type="text"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="enter address"
+                                                                                                       value=""></div>
+                                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text"
+                                                                                                        class="form-control"
+                                                                                                        placeholder="enter email id"
+                                                                                                        value=""></div>
+                                    <div class="col-md-12"><label class="labels">Education</label><input type="text"
+                                                                                                         class="form-control"
+                                                                                                         placeholder="education"
+                                                                                                         value=""></div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6"><label class="labels">Country</label><input type="text"
+                                                                                                      class="form-control"
+                                                                                                      placeholder="country"
+                                                                                                      value=""></div>
+                                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text"
+                                                                                                           class="form-control"
+                                                                                                           value=""
+                                                                                                           placeholder="state">
+                                    </div>
+                                </div>
+                                <div class="mt-5 text-center">
+                                    <button class="btn btn-primary profile-button" type="button">Save Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 py-5">
+                                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span
+                                        class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span>
+                                </div>
+                                <br>
+                                <div class="col-md-12"><label class="labels">Experience in Designing</label><input
+                                        type="text" class="form-control" placeholder="experience" value=""></div>
+                                <br>
+                                <div class="col-md-12"><label class="labels">Additional Details</label><input
+                                        type="text" class="form-control" placeholder="additional details" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 3 - Third column FAQ  -->
+    <div id="FAQ" style="display:none" class="col-md-7">
+
+    </div>
+
+</div>
+
+
+<script>
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("col-md-7");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen");
+</script>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+{% endblock content %}
