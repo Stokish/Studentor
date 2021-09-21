@@ -51,14 +51,24 @@
                 <li><a class="nav-link scrollto" href="#team">Наши спонсоры</a></li>
                 <li><a class="nav-link scrollto" href="{% url 'blog-home' %}">FAQ</a></li>
                 <!--<li><a class="getstarted scrollto" href="{% url 'login' %}">Войти</a></li>-->
-                <ul class="nav nav-tabs">
+                <ul>
                     <li role="presentation" class="dropdown">
+                        <!-- {% if request.user == request.user %}        -->
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{request.user}}<img class="rounded-circle"
+                                                                      src="https://pics.freeicons.io/uploads/icons/png/19339625881548233621-512.png"
+                                                                      width="28" height="28" alt="profile"><span
+                                class="caret"></span>
+                        </a>
+                        <!-- {%endif%} -->
+                        <!-- {% if request.user == true %} -->
+                        <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                            aria-expanded="false">{{request.user}}<img class="rounded-circle"
                                                                       src="https://pics.freeicons.io/uploads/icons/png/19339625881548233621-512.png"
                                                                       width="30" height="30" alt="profile"><span
                                 class="caret"></span>
-                        </a>
+                        </a> -->
+                        <!-- {%endif%} -->
                         <ul class="dropdown-menu">
                             <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
                             <a class="nav-link" href="{% url 'signin' %}">Войти</a>
