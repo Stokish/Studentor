@@ -781,7 +781,7 @@ section {
   transition: 0.3s;
 }
 
-.services .service-box h3 {
+.services .service-box h3,h6 {
   color: #444444;
   font-weight: 700;
 }
@@ -903,7 +903,7 @@ section {
   background: #f51f9c;
 }
 
-.services .service-box:hover h3, .services .service-box:hover p, .services .service-box:hover .read-more {
+.services .service-box:hover * {
   color: #fff;
 }
 

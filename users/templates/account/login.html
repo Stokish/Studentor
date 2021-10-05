@@ -50,7 +50,19 @@
                             <li><a href="{% url 'reset_password' %}">Reset Password</a></li>
                         </ul>
                     </div>
+
                     <a href="{% url 'registration' %}" class="signup-image-link">Create an account</a>
+
+                    {% if user.is_authenticated %}
+                    {% else %}
+                        <span  class="signup-image-link">Or login with
+                                <a href='{% provider_login_url "google"%}'>
+                                    <img
+                                    src="https://free-png.ru/wp-content/uploads/2020/11/b64cc812d68e951149b3e1a21c9a49e7-35dd74d8.png"
+                                    width="20" height="20" style="margin-left: 2%">
+                                </a>
+                        </span>
+                    {% endif %}
                 </div>
             </div>
         </div>
