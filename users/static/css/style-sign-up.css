@@ -222,7 +222,10 @@ h2 {
 
 .main {
     background: #f8f8f8;
-    padding: 50px 0;
+    padding-top: 60px;
+    /* padding-bottom: 10px; */
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .clear {
@@ -292,7 +295,7 @@ body {
 }
 
 .signup {
-    margin-bottom: 150px;
+    /* margin-bottom: 150px; */
     width: 100%;
 }
 

@@ -223,7 +223,10 @@ h2 {
 
 .main {
     background: #f8f8f8;
-    padding: 50px 0;
+    padding-top: 30px;
+    /* padding-bottom: 10px; */
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .clear {
@@ -547,8 +550,8 @@ label.valid:after {
 }
 
 .signin-content {
-    padding-top: 67px;
-    padding-bottom: 87px;
+    padding-top: 30px;
+    padding-bottom: 0px;
 }
 
 .social-login {
