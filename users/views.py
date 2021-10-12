@@ -16,6 +16,10 @@ def index(request):
     return render(request, 'main/index.html')
 
 
+def get_profile(request):
+    return render(request, 'main/profile-whole.html')
+
+
 def register(request):
     form = CreateUserForm()
     if request.method == 'POST':
