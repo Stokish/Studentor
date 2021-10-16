@@ -5,9 +5,10 @@ from django.views import View
 from .forms import CreateUserForm
 from django.contrib.auth import authenticate, login as dj_login, logout
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import UserUpdateForm, ProfileUpdateForm
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.models import Group
 from .decorators import allowed_users, unauthenticated_user
 from .models import Profile
 
@@ -16,8 +17,8 @@ def index(request):
     return render(request, 'main/index.html')
 
 
-def get_profile(request):
-    return render(request, 'main/profile-whole.html')
+def get_vacancy(request):
+    return render(request, 'main/vacancy.html')
 
 
 def register(request):
@@ -27,6 +28,9 @@ def register(request):
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
+            user_1 = form.cleaned_data.get('id')
+            my_group = Group.objects.get(name='Students')
+            my_group.user_set.add(user_1)
             messages.success(request, 'Account was created for ' + user)
             return redirect('signin')
     context = {'form': form}
@@ -72,6 +76,14 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user.profile)
         p_form = ProfileUpdateForm(instance=request.user)
 
+    if request.user.profile.user_role == 'student':
+        # if request.user.groups.filter(name='Member').exists()
+        my_group = Group.objects.get(name='Students')
+        my_group.user_set.add(request.user)
+    else:
+        my_group = Group.objects.get(name='Mentors')
+        my_group.user_set.add(request.user)
+
     context = {
         'u_form': u_form,
         'p_form': p_form
@@ -114,6 +126,26 @@ def profiles(request, pk, *args, **kwargs):
         'user': user,
     }
     return render(request, 'main/userprofile.html', context)
+
+
+def is_student(user):
+    return user.groups.filter(name='Students').exists()
+
+
+def is_mentor(user):
+    return user.groups.filter(name='Mentors').exists()
+
+
+@login_required
+@user_passes_test(is_student)
+def get_profile(request):
+    return render(request, 'main/profile.html')
+
+
+@login_required
+@user_passes_test(is_mentor)
+def get_mentor_profile(request):
+    return render(request, 'main/profile-mentor.html')
 
 
 @login_required

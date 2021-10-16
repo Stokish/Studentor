@@ -8,6 +8,7 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+        # fields = UserCreationForm.Meta.fields + 'user_role'
 
         widgets = {
             'username': forms.TextInput(attrs={
@@ -17,8 +18,7 @@ class CreateUserForm(UserCreationForm):
             'email': forms.EmailInput(attrs={
                 'class': 'form-group',
                 'placeholder': 'Email'
-            })
-
+            }),
         }
 
     def __init__(self, *args, **kwargs):
@@ -44,4 +44,4 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image', 'bio', 'university', 'address', 'telephone', 'website', 'followers']
+        fields = ['image', 'bio', 'university', 'address', 'telephone', 'website', 'followers', 'user_role']

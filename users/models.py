@@ -1,9 +1,11 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, PermissionsMixin
 from PIL import Image
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 
 
 class Profile(models.Model):
@@ -15,6 +17,11 @@ class Profile(models.Model):
     telephone = models.CharField(max_length=100)
     website = models.URLField(max_length=200)
     followers = models.ManyToManyField(User, blank=True, related_name='followers')
+    USER_ROLES = (
+        ('student', 'Student'),
+        ('mentor', 'Mentor')
+    )
+    user_role = models.CharField(max_length=10, choices=USER_ROLES, default='student')
 
     def __str__(self):
         return f'{self.user.username} Profile'
