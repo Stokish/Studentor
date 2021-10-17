@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Title Page-->
+    <title>Registration Mentors</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
+    {% load static %}
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'main/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'main/css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/vendor/bootstrap/css/bootstrap-grid.rtl.css' %}">
+    <script>
+        var options = {
+            format: 'dd-mm-yyyy'
+        }
+        var myDatepicker = new mdb.Datepicker(document.getElementById('myDatepicker'), options)
+        var datepickerEl = document.getElementById('myDatepicker')
+        var datepicker = new mdb.Datepicker(myModalEl)
+        datepicker.open()
+    </script>
+</head>
+
+<body>
+    <header id="header" class="header fixed-top">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+            <a href="{% url 'main' %}" class="logo d-flex align-items-center">
+                <span>Studentor</span>
+            </a>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="{% url 'main' %}">Главная</a></li>
+                    <!--<li><a class="nav-link scrollto" href="{% url 'about' %}">О нас</a></li>-->
+                    <li><a class="nav-link scrollto" href="#about">О нас</a></li>
+                    <!--<li><a class="nav-link scrollto" href="{% url 'celebrity' %}">StudCoins</a></li>-->
+                    <li><a class="nav-link scrollto" href="#features">StudCoins</a></li>
+                    <li><a class="nav-link scrollto" href="#team">Наши спонсоры</a></li>
+                    <li><a class="nav-link scrollto" href="{% url 'blog-home' %}">FAQ</a></li>
+                    <!--<li><a class="getstarted scrollto" href="{% url 'login' %}">Войти</a></li>-->
+                    <ul>
+                        <li role="presentation" class="dropdown">
+                            <!-- {% if request.user == request.user %}        -->
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                                aria-haspopup="true" aria-expanded="false">yerkebulanice<img class="rounded-circle"
+                                    src="/images/avatar.png" width="28" height="28" alt="profile"><span
+                                    class="caret"></span>
+                            </a>
+                            <!-- {%endif%} -->
+                            <!-- {% if request.user == true %} -->
+                            <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                               aria-expanded="false">{{request.user}}<img class="rounded-circle"
+                                                                          src="https://pics.freeicons.io/uploads/icons/png/19339625881548233621-512.png"
+                                                                          width="30" height="30" alt="profile"><span
+                                    class="caret"></span>
+                            </a> -->
+                            <!-- {%endif%} -->
+                            <ul class="dropdown-menu">
+                                <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
+                                <a class="nav-link" href="{% url 'signin' %}">Войти</a>
+                                <!-- {% if request.user == user and user.is_superuser %} -->
+                                <a class="nav-link" href="{% url 'admin' %}">Админ</a>
+                                <!-- {%endif%} -->
+
+                            </ul>
+                        </li>
+                    </ul>
+
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+        </div>
+    </header><!-- End Header -->
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins" style="padding-bottom: 0px;">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <h2 class="title">Choose date</h2>
+                    <form method="POST">
+
+                        <div class="form-outline datepicker">
+                            <input type="text" class="form-control" id="exampleDatepicker1">
+                            <label for="exampleDatepicker1" class="form-label">Example label</label>
+                        </div>
+                        <div class="p-t-15">
+                            <button class="btn btn--radius-2" style="background-color: rgba(73,84,236,1);" type="submit"
+                                onclick=""><a style="text-decoration: none; color: white;"
+                                    href="create_course1.html">Submit</a></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ======= Footer ======= -->
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="{% static 'main/js/global.js'%}"></script>
+    <script src="{% static 'main/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'main/vendor/aos/aos.js'%}"></script>
+    <script src="{% static 'main/vendor/php-email-form/validate.js'%}"></script>
+    <script src="{% static 'main/vendor/swiper/swiper-bundle.min.js'%}"></script>
+    <script src="{% static 'main/vendor/purecounter/purecounter.js'%}"></script>
+    <script src="{% static 'main/vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
+    <script src="{% static 'main/vendor/glightbox/js/glightbox.min.js'%}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'main/js/main.js'%}"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- end document-->
