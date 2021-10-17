@@ -1,0 +1,179 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+    {% load static %}
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'main/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'main/css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/vendor/bootstrap/css/bootstrap-grid.rtl.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <header id="header" class="header fixed-top">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+            <a href="{% url 'main' %}" class="logo d-flex align-items-center">
+                <span>Studentor</span>
+            </a>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="{% url 'main' %}">Главная</a></li>
+                    <!--<li><a class="nav-link scrollto" href="{% url 'about' %}">О нас</a></li>-->
+                    <li><a class="nav-link scrollto" href="#about">О нас</a></li>
+                    <!--<li><a class="nav-link scrollto" href="{% url 'celebrity' %}">StudCoins</a></li>-->
+                    <li><a class="nav-link scrollto" href="#features">StudCoins</a></li>
+                    <li><a class="nav-link scrollto" href="#team">Наши спонсоры</a></li>
+                    <li><a class="nav-link scrollto" href="{% url 'blog-home' %}">FAQ</a></li>
+                    <!--<li><a class="getstarted scrollto" href="{% url 'login' %}">Войти</a></li>-->
+                    <ul>
+                        <li role="presentation" class="dropdown">
+                            <!-- {% if request.user == request.user %}        -->
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                                aria-haspopup="true" aria-expanded="false">{{request.user}}<img class="rounded-circle"
+                                    src="{% static 'main/img/avatar.png'%}" width="28" height="28" alt="profile"><span
+                                    class="caret"></span>
+                            </a>
+                            <!-- {%endif%} -->
+                            <!-- {% if request.user == true %} -->
+                            <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                               aria-expanded="false">{{request.user}}<img class="rounded-circle"
+                                                                          src="https://pics.freeicons.io/uploads/icons/png/19339625881548233621-512.png"
+                                                                          width="30" height="30" alt="profile"><span
+                                    class="caret"></span>
+                            </a> -->
+                            <!-- {%endif%} -->
+                            <ul class="dropdown-menu">
+                                <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
+                                <a class="nav-link" href="{% url 'signin' %}">Войти</a>
+                                <!-- {% if request.user == user and user.is_superuser %} -->
+                                <a class="nav-link" href="{% url 'admin' %}">Админ</a>
+                                <!-- {%endif%} -->
+
+                            </ul>
+                        </li>
+                    </ul>
+
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
+    <main class="main">
+        <section id="hero" class="hero ">
+            <div class="container-fluid row"
+                style="margin-right: 20px; margin-left: 20px; justify-content: flex-start; align-items: center; flex-direction: row;">
+                <div class="col-12" style="height: 30px;"></div>
+                <div class="col-1"></div>
+                <div class="col-10" style="justify-content: flex-end;">
+                    <div class="title v102_58">Мои курсы</div>
+                    <div class="container v102_57 d-flex row"
+                        style="border-radius: 40px; margin-right: 0px; margin-left: 0px; align-items: center; padding: auto;">
+                        <div class="img_cpp col-lg-3 col-md-12 d-flex justify-content-center ">
+                            <img class="v102_59" src="{% static 'main/img/v102_59.png'%}" alt="c++">
+                        </div>
+                        <div class="col-lg-8 col-md-12 py-3">
+                            <div class="mx-auto" style="align-items: center;">
+                                <p class="v102_60">C++</p>
+                            </div>
+                            <div class="row d-flex-inline">
+                                <div class="col-lg-3"><img style="width: 24px;height: 24px;"
+                                        src="{% static 'main/img/outline_event_black_24dp.png' %}" alt=""></div>
+                                <div class="v102_63 col-9 mx-2">Arrays, References,Pointers</div>
+                            </div>
+                            <div class="row d-flex-inline">
+                                <div><img style="width: 24px;height: 24px;"
+                                        src="{% static 'main/img/outline_schedule_black_24dp.png' %}" alt=""></div>
+                                <div class="v102_63 col-10 mx-2">50 min</div>
+                            </div>
+                            <div class="row d-flex-inline">
+                                <div><img style="width: 24px;height: 24px;"
+                                        src="{% static 'main/img/outline_calendar_today_black_24dp.png' %}" alt="">
+                                </div>
+                                <div class="v102_63 col-10 mx-2">20 september 2021, 16:00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <a href="{% url 'create_course' %}" style="text-decoration: none;">
+                        <div class="v102_70 col-lg-4 col-md-12 p-3">
+                            Добавить курсы
+                        </div>
+                    </a>
+                </div>
+                <!-- <div class="col-1"></div> -->
+            </div>
+        </section>
+    </main>
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+
+        <div class="footer-top">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-5 col-md-12 footer-info">
+                        <a href="{% url 'main' %}" class="logo d-flex align-items-center">
+                            <span>Studentor</span>
+                        </a>
+                        <p>Studentor – платформа , которая имеет правильное менторства для учебы от разных точек
+                            мира с доступной ценой, где каждый обменивает знания на бонусы от наших партнеров.</p>
+                        <div class="social-links mt-3">
+                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="https://www.instagram.com/studentor.kz/?hl=ru" class="instagram"><i
+                                    class="bi bi-instagram bx bxl-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-6 footer-links">
+                        <h4>Полезные ссылки</h4>
+                        <ul>
+                            <li><i class="bi bi-chevron-right"></i> <a href="{% url 'main' %}">Главная</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="#about">О нас</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="#features">Возможности Studentor</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="{% url 'create' %}">Задать Вопрос</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="#">Быть Ментором</a></li>
+                        </ul>
+                    </div>
+
+
+                    <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+                        <h4>Наши контакты</h4>
+                        <p>
+                            <strong>Google Email:</strong> studentor.kz@gmail.com<br>
+                            <strong>Mail Email:</strong> studentor.kz@mail.ru<br>
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Studentor</span></strong>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+</body>
+
+</html>

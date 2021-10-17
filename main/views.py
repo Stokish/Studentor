@@ -10,15 +10,12 @@ from .decorators import allowed_users, unauthenticated_user
 def index(request):
     return render(request, 'main/new.html')
 
-
 def celebrity(request):
     tasks = Task.objects.order_by('-id')
     return render(request, 'main/celebrity.html', {'title': 'Main page', 'tasks': tasks})
 
-
 def about(request):
     return render(request, 'main/about.html')
-
 
 def create(request):
     error = ''
@@ -66,3 +63,15 @@ def register(request):
             form.save()
     context = {'form': form}
     return render(request, 'accounts/register.html', context)
+
+def mentor(request):
+    return render(request, 'main/mentor.html')
+    
+def mentor_auth(request):
+    return render(request, 'main/mentor_auth.html')
+
+def course_reg(request):
+    return render(request, 'main/course_reg.html')
+
+def create_course(request):
+    return render(request, 'main/create_course.hmtl')
