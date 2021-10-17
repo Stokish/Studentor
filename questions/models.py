@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+
 class Post(models.Model):
     subject = models.CharField(max_length=100)
     question = models.TextField()
@@ -16,6 +17,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
+
 
 class Comments(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Вопросы', blank=True, null=True,
