@@ -20,6 +20,7 @@ urlpatterns = [
                   path('in/', TemplateView.as_view(template_name="index.html")),
                   path('accounts/', include('allauth.urls')),
                   path('logout', LogoutView.as_view()),
+                  path('dashboard/', include('dashboard.urls')),
                   url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
                   url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
