@@ -1,0 +1,46 @@
+.my-btn-block {
+    z-index: 5;
+    margin-top:-1%;
+    display: flex;
+    justify-content: flex-end;
+}
+.btn-item {
+    outline: 0;
+    border: 2px solid #ccc;
+    color: #000;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.05);
+    transition: 1.5s cubic-bezier(.21,.04,.26,.99);
+    border-radius: 0.2em;
+    background: #fff;
+    transition: 1.5s cubic-bezier(.21,.04,.26,.99);
+}
+.comment{
+    border-left: solid rgba(28,142,242,0.75) 1px;
+}
+.comment-text{
+    text-indent: 2rem;
+    margin-left: 2rem;
+}
+.card-main{
+    box-shadow: 0px 0px 25px -5px rgba(28,142,242,0.75);
+-webkit-box-shadow: 0px 0px 25px -5px rgba(28,142,242,0.75);
+-moz-box-shadow: 0px 0px 25px -5px rgba(28,142,242,0.75);
+}
+.u-answer{
+    display: none;
+}
+#main-reply{
+    box-shadow:0 1px 1px rgba(0,0,0,0.08),0 2px 2px rgba(0,0,0,0.12),0 2px 2px rgba(0,0,0,0.2);
+    color: #4d5ff1;
+    border: solid #4d5ff1 1px;
+    transition: color 500ms;
+    background-color: white;
+    font-size: large;
+}
+#main-reply:hover{
+    color: white;
+    background-color: #4d5ff1;
+    border: solid white 1px;
+}

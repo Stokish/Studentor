@@ -1,4 +1,3 @@
-from django.core.checks import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy, reverse
@@ -11,11 +10,9 @@ from django.views.generic import (
     DeleteView
 )
 from django.views.generic.edit import FormMixin
-from requests import post
 from .models import Post, Comments
 from .forms import CommentForm
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404
 
 
 def home(request):
@@ -36,20 +33,19 @@ class PostDetailListView(DetailView, FormMixin):
     model = Post
     template_name = 'blog/post-detail.html'
     form_class = CommentForm
-    success_msg = 'Ответ успешно созданб ожидайте модерации'
+    success_msg = 'Ответ успешно создан ожидайте модерации'
 
     def get_success_url(self):
-        return reverse_lazy('post-detail', kwargs={'pk': self.get_object().id})
+        return reverse_lazy('post-detail', kwargs={'pk': self.get_object().pk})
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
-
         else:
             return self.form_invalid(form)
 
-    def form_valid(self, form):
+    def form_valid(self, form, **kwargs):
         self.object = form.save(commit=False)
         self.object.post = self.get_object()
         self.object.author = self.request.user
@@ -70,13 +66,18 @@ class CommentReplyView(LoginRequiredMixin, View):
             new_comment.parent = parent_comment
             new_comment.save()
 
-        return redirect('post-detail', pk=post_pk)
+        return redirect('post-detail', slug=post.slug)
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'blog/post_form.html'
     model = Post
     fields = ['subject', 'question']
-    template_name = 'blog/post_form.html'
+    dob = model.subject
+    labels = {
+        'subject': 'Название',
+        'question': 'Детали вопроса'
+    }
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -115,28 +116,13 @@ class AddLike(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         post = Post.objects.get(pk=pk)
 
-        is_dislike = False
-
-        for dislike in post.dislikes.all():
-            if dislike == request.user:
-                is_dislike = True
-                break
-
-        if is_dislike:
+        if request.user in post.dislikes.all():
             post.dislikes.remove(request.user)
 
-        is_like = False
-
-        for like in post.likes.all():
-            if like == request.user:
-                is_like = True
-                break
-
-        if not is_like:
-            post.likes.add(request.user)
-
-        if is_like:
+        if request.user in post.likes.all():
             post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
 
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)
