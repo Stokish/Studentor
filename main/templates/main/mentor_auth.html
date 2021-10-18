@@ -8,10 +8,10 @@
 
 
     <!-- Title Page-->
-    <title>Registration Mentors</title>
+    <title>Course Registration</title>
     <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+            rel="stylesheet">
     {% load static %}
     <!-- Vendor CSS Files -->
     <link href="{% static 'main/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -32,156 +32,150 @@
 </head>
 
 <body>
-    <header id="header" class="header fixed-top">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+<header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-            <a href="{% url 'main' %}" class="logo d-flex align-items-center">
-                <span>Studentor</span>
-            </a>
+        <a href="{% url 'main' %}" class="logo d-flex align-items-center">
+            <span>Studentor</span>
+        </a>
 
-            <nav id="navbar" class="navbar">
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="nav-link scrollto active" href="{% url 'main' %}">Главная</a></li>
+                <!--<li><a class="nav-link scrollto" href="{% url 'about' %}">О нас</a></li>-->
+                <li><a class="nav-link scrollto" href="#about">О нас</a></li>
+                <!--<li><a class="nav-link scrollto" href="{% url 'celebrity' %}">StudCoins</a></li>-->
+                <li><a class="nav-link scrollto" href="#features">StudCoins</a></li>
+                <li><a class="nav-link scrollto" href="#team">Наши спонсоры</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'blog-home' %}">FAQ</a></li>
+                <!--<li><a class="getstarted scrollto" href="{% url 'login' %}">Войти</a></li>-->
                 <ul>
-                    <li><a class="nav-link scrollto active" href="{% url 'main' %}">Главная</a></li>
-                    <!--<li><a class="nav-link scrollto" href="{% url 'about' %}">О нас</a></li>-->
-                    <li><a class="nav-link scrollto" href="#about">О нас</a></li>
-                    <!--<li><a class="nav-link scrollto" href="{% url 'celebrity' %}">StudCoins</a></li>-->
-                    <li><a class="nav-link scrollto" href="#features">StudCoins</a></li>
-                    <li><a class="nav-link scrollto" href="#team">Наши спонсоры</a></li>
-                    <li><a class="nav-link scrollto" href="{% url 'blog-home' %}">FAQ</a></li>
-                    <!--<li><a class="getstarted scrollto" href="{% url 'login' %}">Войти</a></li>-->
-                    <ul>
-                        <li role="presentation" class="dropdown">
-                            <!-- {% if request.user == request.user %}        -->
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                                aria-haspopup="true" aria-expanded="false">{{request.user}}<img class="rounded-circle"
-                                    src="{% static 'main/img/avatar.png'%}" width="28" height="28" alt="profile"><span
-                                    class="caret"></span>
-                            </a>
-                            <!-- {%endif%} -->
-                            <!-- {% if request.user == true %} -->
-                            <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                               aria-expanded="false">{{request.user}}<img class="rounded-circle"
-                                                                          src="https://pics.freeicons.io/uploads/icons/png/19339625881548233621-512.png"
-                                                                          width="30" height="30" alt="profile"><span
-                                    class="caret"></span>
-                            </a> -->
-                            <!-- {%endif%} -->
-                            <ul class="dropdown-menu">
-                                <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
-                                <a class="nav-link" href="{% url 'signin' %}">Войти</a>
-                                <!-- {% if request.user == user and user.is_superuser %} -->
-                                <a class="nav-link" href="{% url 'admin' %}">Админ</a>
-                                <!-- {%endif%} -->
+                    <li role="presentation" class="dropdown">
+                        {% if request.user == request.user %}
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="true" aria-expanded="false">{{request.user}}<img class="rounded-circle"
+                                                                                           src="https://pics.freeicons.io/uploads/icons/png/19339625881548233621-512.png"
+                                                                                           width="28" height="28"
+                                                                                           alt="profile"><span
+                                class="caret"></span>
+                        </a>
+                        {%endif%}
+                        <ul class="dropdown-menu">
+                            <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
+                            <a class="nav-link" href="{% url 'signin' %}">Войти</a>
+                            {% if request.user == user and user.is_superuser %}
+                            <a class="nav-link" href="{% url 'admin' %}">Админ</a>
+                            {%endif%}
 
-                            </ul>
-                        </li>
-                    </ul>
-
+                        </ul>
+                    </li>
                 </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
-        </div>
-    </header><!-- End Header -->
-    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins" style="padding-bottom: 0px;">
-        <div class="wrapper wrapper--w680">
-            <div class="card card-4">
-                <div class="card-body">
-                    <h2 class="title">Registration Mentors</h2>
-                    <form method="POST">
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Имя</label>
-                                    <input class="input--style-4" type="text" name="first_name">
-                                </div>
+
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+    </div>
+</header><!-- End Header -->
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins" style="padding-bottom: 0px;">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <h2 class="title">Registration Mentors</h2>
+                <form method="POST">
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Имя</label>
+                                <input class="input--style-4" type="text" name="first_name">
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Фамилия</label>
-                                    <input class="input--style-4" type="text" name="last_name">
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Фамилия</label>
+                                <input class="input--style-4" type="text" name="last_name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Почта</label>
+                                <input class="input--style-4" type="email" name="email">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Номер телефона</label>
+                                <input class="input--style-4" type="text" name="phone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Предмет</label>
+                                <div class="col-1"></div>
+                                <div class="rs-select2 js-select-simple select--no-search">
+                                    <select name="subject">
+                                        <option disabled="disabled" selected="selected">Выбрать предмет</option>
+                                        <option>C++</option>
+                                        <option>Python</option>
+                                        <option>Java</option>
+                                    </select>
+                                    <div class="select-dropdown"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Почта</label>
-                                    <input class="input--style-4" type="email" name="email">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Номер телефона</label>
-                                    <input class="input--style-4" type="text" name="phone">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Предмет</label>
-                                    <div class="col-1"></div>
-                                    <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="subject">
-                                            <option disabled="disabled" selected="selected">Выбрать предмет</option>
-                                            <option>C++</option>
-                                            <option>Python</option>
-                                            <option>Java</option>
-                                        </select>
-                                        <div class="select-dropdown"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Язык</label>
-                                    <div class="col-1"></div>
-                                    <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="subject">
-                                            <option disabled="disabled" selected="selected">Выбрать язык</option>
-                                            <option>Kazakh</option>
-                                            <option>Russian</option>
-                                            <option>Englsih</option>
-                                        </select>
-                                        <div class="select-dropdown"></div>
-                                    </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Язык</label>
+                                <div class="col-1"></div>
+                                <div class="rs-select2 js-select-simple select--no-search">
+                                    <select name="subject">
+                                        <option disabled="disabled" selected="selected">Выбрать язык</option>
+                                        <option>Kazakh</option>
+                                        <option>Russian</option>
+                                        <option>Englsih</option>
+                                    </select>
+                                    <div class="select-dropdown"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Почасовая ставка</label>
-                                    <input class="input--style-4" type="text" name="stavka" placeholder="тенге">
-                                </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Почасовая ставка</label>
+                                <input class="input--style-4" type="text" name="stavka" placeholder="тенге">
                             </div>
                         </div>
-                        <div class="p-t-15">
-                            <button class="btn btn--radius-2" style="background-color: rgba(73,84,236,1);" type="submit"
+                    </div>
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2" style="background-color: rgba(73,84,236,1);" type="submit"
                                 onclick=""><a style="text-decoration: none; color: white;"
-                                    href="{% url 'course_reg' %}">Submit</a></button>
-                        </div>
-                    </form>
-                </div>
+                                              href="{% url 'course_reg' %}">Submit</a></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <!-- ======= Footer ======= -->
+</div>
+<!-- ======= Footer ======= -->
 
-    <!-- <script src="{% static 'main/js/main.js' %}"></script> -->
-    <script src="{% static 'main/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
-    <script src="{% static 'main/vendor/aos/aos.js' %}"></script>
-    <script src="{% static 'main/vendor/php-email-form/validate.js' %}"></script>
-    <script src="{% static 'main/vendor/swiper/swiper-bundle.min.js' %}"></script>
-    <script src="{% static 'main/vendor/purecounter/purecounter.js' %}"></script>
-    <script src="{% static 'main/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-    <script src="{% static 'main/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<!-- <script src="{% static 'main/js/main.js' %}"></script> -->
+<script src="{% static 'main/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'main/vendor/aos/aos.js' %}"></script>
+<script src="{% static 'main/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'main/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'main/vendor/purecounter/purecounter.js' %}"></script>
+<script src="{% static 'main/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'main/vendor/glightbox/js/glightbox.min.js' %}"></script>
 
-    <!-- Template Main JS File -->
-    <script src="{% static 'main/js/main.js' %}"></script>
+<!-- Template Main JS File -->
+<script src="{% static 'main/js/main.js' %}"></script>
 
-    <!-- Main JS-->
-    <script src="js/global.js"></script>
+<!-- Main JS-->
+<script src="js/global.js"></script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 

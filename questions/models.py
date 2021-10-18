@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 
+
 class Post(models.Model):
     subject = models.CharField(max_length=100, verbose_name='Название вопроса')
     question = models.TextField(verbose_name='Вопрос и его детали')
@@ -23,10 +24,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
-
-    def save(self, *args, **kwargs):
-        super(Post, self).save(*args, **kwargs)
-
+      
 
 class Comments(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Вопросы', blank=True, null=True,

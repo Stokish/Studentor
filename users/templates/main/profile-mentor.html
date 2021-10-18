@@ -1,0 +1,502 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}
+Create notes
+{% endblock %}
+{% block content %}
+<head>
+    <style>
+        @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .row {
+            margin-top: 15%;
+            margin-left: 10%;
+            align-content: center;
+        }
+
+        .div_1 {
+            width: 30%;
+            background: rgba(188, 220, 248, 0.25);
+            border-radius: 40px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .div_2 {
+            width: 60%;
+            background: rgba(188, 220, 248, 0.25);
+            border-radius: 40px;
+            margin-right: 10%;
+            margin-bottom: 5%;
+            font-family: Montserrat, sans-serif;
+        }
+
+        .addition {
+            margin-left: 8%;
+            margin-right: 30%;
+            margin-top: 5%
+        }
+
+        .material {
+            background: #FFFFFF;
+            box-shadow: 0px 2px 2px rgba(13, 118, 194, 0.25);
+            border-radius: 20px;
+            text-align: center;
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 4%;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .downloads {
+            margin-left: 5%;
+        }
+
+        .downloads_document {
+            margin-left: 3%;
+        }
+
+        .doc-weight {
+            margin-left: 5%;
+        }
+
+        .blocks {
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-bottom: 5%;
+        }
+
+        .chart {
+            margin-top: 3%
+        }
+
+        .timetable {
+            width: 90%;
+            background: rgba(188, 220, 248, 0.25);
+            border-radius: 40px;
+            margin: 5% auto;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .filter {
+            background: #FFFFFF;
+            border-radius: 20px;
+            margin-top: -5%;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .schedule {
+            background: #FFFFFF;
+            border-radius: 25px;
+            width: 85%;
+            margin-right: auto;
+            margin-left: auto;
+            margin-bottom: 0.5%;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .time {
+            font-family: "Quicksand", sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 30px;
+            text-align: center;
+            color: #023562;
+        }
+
+        .karma-text {
+            font-weight: bold;
+            font-family: 'Nunito', sans-serif;
+            color: #731FDE;
+        }
+
+        .studcoin-text {
+            font-weight: bold;
+            font-family: 'Nunito', sans-serif;
+            color: #0DA930;
+        }
+
+        a, a > span {
+            position: relative;
+            color: inherit;
+            text-decoration: none;
+            line-height: 24px;
+        }
+
+        a:before, a:after, a > span:before, a > span:after {
+            content: '';
+            position: absolute;
+            transition: transform .5s ease;
+        }
+
+        .hover-2 {
+            padding: 10px;
+        }
+
+        .hover-2:before, .hover-2:after {
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border-style: solid;
+        }
+
+        .hover-2:before {
+            border-width: 2px 0 2px 0;
+            transform: scaleX(0);
+        }
+
+        .hover-2:after {
+            border-width: 0 2px 0 2px;
+            transform: scaleY(0);
+        }
+
+        .hover-2:hover:before, .hover-2:hover:after {
+            transform: scale(1, 1);
+        }
+
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+          integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.13.2/lib/index.js"></script>
+</head>
+<body>
+
+
+<!--Main part-->
+<div class="container">
+    <div class="row">
+        <div class="div_2 mb-3">
+            <div class="row profile-block" style="width:100%; margin-top: -1%">
+                <!--                        picture-->
+                <div class=" div_main border-right border-info" style="width:40%; margin-top: 5%; margin-bottom: 5%">
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
+                             alt="Admin"
+                             class="rounded-circle" width="150">
+                        <div class="mt-3">
+                            <h4>Sam Smith</h4>
+                            <p class="text-secondary mb-1">Astana IT University</p>
+                            <h5>Get Bonus</h5>
+                            <div class="row">
+                                <div class="col-md border-right border-info">
+                                    <span class="karma-text">500</span><img src="{% static 'images/karma.png' %}"
+                                                                            class="rounded" alt="Karma" width="45"
+                                                                            height="40" style="margin-left: -5%">
+                                </div>
+                                <div class="col-md">
+                                    <span class="studcoin-text">50</span><img src="{% static 'images/studcoin.png' %}"
+                                                                              class="rounded" alt="Karma" width="50"
+                                                                              height="40" style="margin-left: -5%">
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-primary" style="margin-top: 5%; width: 80%">Edit</button>
+                        </div>
+                    </div>
+                </div>
+                <!--                        information-->
+                <div class="block" style="width:50%; margin-top: 5%; margin-bottom: 5%">
+
+                    <div class="d-flex" style="margin-bottom: 5%">
+                        <div class="d-inline-block" style="margin-right: 20%">
+                            <div class="col-sm-3 text-center">
+                                <h6 class="mb-0">Gender</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                Male
+                            </div>
+                        </div>
+                        <div class="d-inline-block">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Birthday</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                24.11.2002
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="d-inline-block" style="margin-right: 20%">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Strong</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                Physics
+                            </div>
+                        </div>
+                        <div class="d-inline-block">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Hobby</h6>
+                            </div>
+                            <div class="col-sm text-secondary">
+                                singing, acting
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex" style="margin-top: 4%">
+                        <div class="col d-inline-block">
+                            <h6 class="mb-0">Reviews</h6>
+                        </div>
+                        <div class="col-sm">
+                            <button type="button" class="btn btn-outline-info waves-effect" style="width: 100%">Show
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart">
+                        <p>Level progress</p>
+                        <canvas id="myChart" style="width:80%; height: 80%"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="div_1">
+            <h4 style="margin-top: 5%; margin-left: 2%">Incomes</h4>
+            <table class="table" style="margin-top: 15%; width: 20%">
+                <thead>
+                <tr>
+                    <th scope="col">Lesson</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Earning</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Physics</td>
+                    <td>24.09.21</td>
+                    <td>2000 tg</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Physics</td>
+                    <td>22.09.21</td>
+                    <td>2000 tg</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Java</td>
+                    <td>Recursive</td>
+                    <td>5000 tg</td>
+                </tr>
+                </tbody>
+            </table>
+            <h6 style="float: right; font-weight: bold">Total: 9000 tg</h6>
+        </div>
+    </div>
+</div>
+
+<!--Timetable part-->
+<div class="container timetable">
+    <div class="row" style="margin-top: 5%">
+        <div class="col addition">
+            <h5 class="mb-0" style="margin-top:-5%; font-weight: bold">My Timetable</h5>
+        </div>
+        <div class="col-md-5">
+            <div class="col filter">
+                <div class="row" style="margin-right: auto; margin-left: auto">
+                    <div class="col" style="margin-top: 5%">
+                        <p><a class="hover-2" href="">Week</a></p>
+                    </div>
+                    <div class="col-lg" style="margin-top: 5%">
+                        <p><a class="hover-2" href="">Next week</a></p>
+                    </div>
+                    <div class="col" style="margin-top: 5%">
+                        <p><a class="hover-2" href="">Month</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--        Schedule part-->
+    <div class="schedule">
+        <div class="row" style="margin-top: 5%;">
+
+            <div class="col-3">
+                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
+                    <div class="text-center">
+                        <span class="time">24 September</span>
+                        <br/>
+                        <span class="text-secondary">10:00-11:00AM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
+                    <div class="text-center">
+                        <span class="time">Lesson</span>
+                        <br/>
+                        <span class="text-secondary">Java Programming</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
+                    <div class="text-center">
+                        <span class="time">Student</span>
+                        <br/>
+                        <span class="text-secondary">Laura Almuratovna</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3" style="margin-top: 1.3%">
+                <div style="justify-content: center">
+                    <button type="button" class="btn btn-primary">Join the lesson
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="schedule">
+        <div class="row" style="margin-top: 5%;">
+
+            <div class="col-3">
+                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
+                    <div class="text-center">
+                        <span class="time">24 September</span>
+                        <br/>
+                        <span class="text-secondary">10:00-11:00AM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
+                    <div class="text-center">
+                        <span class="time">Lesson</span>
+                        <br/>
+                        <span class="text-secondary">Java Programming</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
+                    <div class="text-center">
+                        <span class="time">Student</span>
+                        <br/>
+                        <span class="text-secondary">John Legend, Laura Almuratovna</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3" style="margin-top: 1.3%">
+                <div style="justify-content: center">
+                    <button type="button" class="btn btn-primary">Join the lesson
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="schedule">
+        <div class="row" style="margin-top: 5%;">
+
+            <div class="col-3">
+                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
+                    <div class="text-center">
+                        <span class="time">24 September</span>
+                        <br/>
+                        <span class="text-secondary">10:00-11:00AM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
+                    <div class="text-center">
+                        <span class="time">Lesson</span>
+                        <br/>
+                        <span class="text-secondary">Java Programming</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="col border-right border-info" style="margin-top: 8%; margin-bottom: 5%">
+                    <div class="text-center">
+                        <span class="time">Student</span>
+                        <br/>
+                        <span class="text-secondary">John Legend, Laura Almuratovna, Mark Bob</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3" style="margin-top: 1.3%">
+                <div style="justify-content: center">
+                    <button type="button" class="btn btn-primary">Join the lesson
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p style="color: rgba(188, 220, 248, 0.35);">pp</p>
+
+
+</div>
+
+<!--Scripts JS-->
+<script>
+    var xValues = ['C++', 'Java', 'Editing', 'Business Fundamentals', 'ICT'];
+
+    new Chart("myChart", {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+                data: [860, 1140, 1060, 1060, 1070],
+                borderColor: "#1DB9C3",
+                fill: false
+            }, {
+                data: [1600, 1700, 1700, 1900, 2000],
+                borderColor: "#7027A0",
+                fill: false
+            }, {
+                data: [300, 700, 2000, 5000, 6000],
+                borderColor: "#C32BAD",
+                fill: false
+            }]
+        },
+        options: {
+            legend: {display: false}
+        }
+    });
+
+    var Main = {
+        methods: {
+            submitUpload() {
+                this.$refs.upload.submit();
+            },
+            handleUploadBefore(file) {
+                console.log(file.name)
+            }
+        }
+    }
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#app')
+</script>
+</body>
+{% endblock %}
