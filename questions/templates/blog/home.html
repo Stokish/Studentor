@@ -1,47 +1,45 @@
 {% extends 'blog/base.html' %}
 {% block content %}
 {% load static %}
-<div class="footer-newsletter" style="margin-top: 10%;">
+    <link href="{% static 'css/blog/home.css' %}" rel="stylesheet">
+
+<div class="footer-newsletter" style="margin-top: 5%;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
                 <h3>Вместе со Studentor к уверенному будущему</h3>
+                <a class=" btn " id="cr_btn" href="{% url 'post-create' %}">Задать вопрос</a>
             </div>
         </div>
     </div>
 </div>
+<div class="q_box">
 {% for post in posts %}
-<div class="container mt-5">
-    <div class="d-flex justify-content-center row" style="border: black">
-        <div class="col-md-8 border">
-            <div class="d-flex flex-column comment-section">
-                <div class="bg-white p-2">
-                    <div class="d-flex flex-row user-info"><img class="rounded-circle"
-                                                                src="{{ post.author.profile.image.url }}" width="40"
-                                                                height="40">
-                        <div class="d-flex flex-column justify-content-start ml-2">
-                            <span class="d-block font-weight-bold name px-2"><a
-                                    href="{% url 'profilePlace' post.author.profile.pk %}"
-                                    style="text-decoration: none; color: black">{{ post.author }}</a></span>
-                            <span class="date text-black-50 px-2">{{ post.date_posted|date:"F d, Y" }}</span></div>
+    <div class="container mt-3 q_card">
+        <div class="d-flex justify-content-center row" style="border: black">
+                <div class="d-flex flex-column comment-section">
+                    <div class="mx-2">
+                        <div class="d-flex flex-row user-info"><img class="rounded-circle"
+                                                                    src="{{ post.author.profile.image.url }}" width="40"
+                                                                    height="40">
+                            <div class="d-flex flex-column justify-content-start ml-2">
+                                <span class="d-block font-weight-bold name px-2"><a
+                                        href="{% url 'profilePlace' post.author.profile.pk %}"
+                                        style="text-decoration: none; color: black">{{ post.author }}</a></span>
+                                <span class="date text-black-50 px-2">{{ post.date_posted|date:"F d, Y" }}</span></div>
+                        </div>
+                        <div class="mt-2">
+                            <a href="{{ post.get_url }}">{{ post.subject }}</a>
+                            <p class="comment-text">{{ post.question }}</p>
+                        </div>
                     </div>
-                    <div class="mt-2">
-                        <a href="{% url 'post-detail' post.id %}">{{ post.subject }}</a>
-                        <p class="comment-text">{{ post.question }}</p>
+                    <div class="text-right">
+                        <a class="text-right btn q_btn" href="{{ post.get_url }}" >Подробнее</a>
                     </div>
-                </div>
-                <div class="bg-white">
-
-                </div>
-                <div class="mt-2 text-right" style="margin-top: 4%">
-                    <button class="btn btn-info" type="button"><a
-                            href="{% url 'post-detail' post.id %}" style="text-decoration: none">Answer</a></button>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>
 {% endfor %}
-
+</div>
 {% endblock content %}
