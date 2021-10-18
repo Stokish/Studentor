@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'education_files',
     'todo_task',
     'dashboard',
+    'cources',
     'crispy_forms',
     'users.apps.UsersConfig',
     'rest_framework',
@@ -211,6 +212,6 @@ AUTHENTICATION_BACKENDS = [
 
 # Additional configuration settings
 SOCIALACCOUNT_QUERY_EMAIL = True
-ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True

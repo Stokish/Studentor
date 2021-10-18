@@ -13,6 +13,7 @@ urlpatterns = [
                   path('', include('main.urls')),
                   path('index/', TemplateView.as_view(template_name='index.html')),
                   path('users/', include('users.urls')),
+                  path('course/', include('cources.urls')),
                   path('questions/', include('questions.urls')),
                   path('account/', include('accounts.urls')),
                   path('documents/', include('education_files.urls')),

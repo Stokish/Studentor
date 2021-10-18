@@ -26,12 +26,11 @@ def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
-            user_1 = form.cleaned_data.get('id')
+            user = form.save(commit=False)
+            user.save()
             my_group = Group.objects.get(name='Students')
-            my_group.user_set.add(user_1)
-            messages.success(request, 'Account was created for ' + user)
+            user.groups.add(my_group)
+            # messages.success(request, 'Account was created for ' + user)
             return redirect('signin')
     context = {'form': form}
     return render(request, 'account/register.html', context)
@@ -46,7 +45,12 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             dj_login(request, user)
-            return redirect('main')
+            if user.groups.filter(name='Students').exists():
+                return redirect('course-types')
+            if user.groups.filter(name='Mentors').exists():
+                return redirect('mentor')
+            if user.groups.filter(name='Mentors').exists() and user.groups.filter(name='Mentors').exists():
+                return redirect('course-types')
         else:
             messages.info(request, 'Username or password incorrect')
     context = {}
