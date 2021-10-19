@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'education_files',
     'todo_task',
     'dashboard',
-    'cources',
     'crispy_forms',
     'users.apps.UsersConfig',
     'rest_framework',
