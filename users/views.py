@@ -26,10 +26,21 @@ def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
+            # form.save will raise a signal to create user and profile
+            user = form.save()
+            # now profile and user are created but we need our role to be saved
+            # therefore we need to access it and save from form
+            user.profile.user_role = form.cleaned_data.get('roles')
+
+            if user.profile.user_role == 'student':
+                my_group = Group.objects.get(name='Students')
+                my_group.user_set.add(user)
+            else:
+                my_group = Group.objects.get(name='Mentors')
+                my_group.user_set.add(user)
+
             user.save()
-            my_group = Group.objects.get(name='Students')
-            user.groups.add(my_group)
+
             # messages.success(request, 'Account was created for ' + user)
             return redirect('signin')
     context = {'form': form}
@@ -45,10 +56,6 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             dj_login(request, user)
-            if request.user.last_login == request.user.date_joined:
-                print("ppp")
-            else:
-                print('has')
             if user.groups.filter(name='Students').exists():
                 return redirect('course-types')
             if user.groups.filter(name='Mentors').exists():

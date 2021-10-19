@@ -3,11 +3,18 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
 
+USER_ROLES = (
+        ('student', 'Student'),
+        ('mentor', 'Mentor')
+    )
+
 
 class CreateUserForm(UserCreationForm):
+    roles = forms.ChoiceField(label="roles", widget=forms.RadioSelect, choices=USER_ROLES)
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ('username', 'email', 'roles', 'password1', 'password2')
         # fields = UserCreationForm.Meta.fields + 'user_role'
 
         widgets = {
@@ -19,6 +26,7 @@ class CreateUserForm(UserCreationForm):
                 'class': 'form-group',
                 'placeholder': 'Email'
             }),
+
         }
 
     def __init__(self, *args, **kwargs):
@@ -44,4 +52,5 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image', 'bio', 'university', 'address', 'telephone', 'website', 'followers', 'user_role']
+        fields = ['image', 'bio', 'university', 'address', 'telephone', 'website', 'user_role']
+

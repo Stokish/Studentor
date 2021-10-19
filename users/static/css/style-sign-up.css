@@ -533,7 +533,25 @@ label.valid:after {
     font-size: 20px;
     color: green;
 }
+/* roles identifier*/
+#id_roles {
+    display:flex;
+  list-style:none;
+    margin-left: 0;
+    padding-left: 0;
+    padding-top: 5%;
+}
 
+#id_roles > li {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    list-style-type: none;
+}
+/* For label of roles*/
+label[for="id_roles_0"],label[for="id_roles_1"]{
+    position: static;
+}
 .label-agree-term {
     position: relative;
     top: 0%;
@@ -644,6 +662,9 @@ label.valid:after {
 }
 
 @media screen and (max-width: 768px) {
+    #id_roles {
+        margin-bottom: 0;
+    }
     .signup-content, .signin-content {
         flex-direction: column;
         -moz-flex-direction: column;
