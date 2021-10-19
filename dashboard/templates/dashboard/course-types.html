@@ -4,6 +4,7 @@ Dashboard
 {% endblock %}
 {% block content %}
 {% load static %}
+{% load poll_extras %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="{% static 'dashboard/css/course-types.css' %}" rel="stylesheet">
 <script src="{% static 'dashboard/js/buttons.js' %}"></script>
@@ -23,9 +24,19 @@ Dashboard
             Вакансии
         </button>
 
+        {% if request.user|has_group:"Students"%}
         <button>
             Стать ментором
         </button>
+        {%endif%}
+
+        {% if request.user|has_group:"Mentors" %}
+        <button>
+            <a href="{% url 'course_reg' %}" style="text-decoration: none;color: black;">
+                Созданные курсы
+            </a>
+        </button>
+        {%endif%}
 
     </div>
     <div class="container">

@@ -45,6 +45,10 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             dj_login(request, user)
+            if request.user.last_login == request.user.date_joined:
+                print("ppp")
+            else:
+                print('has')
             if user.groups.filter(name='Students').exists():
                 return redirect('course-types')
             if user.groups.filter(name='Mentors').exists():
