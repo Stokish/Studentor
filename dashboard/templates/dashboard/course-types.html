@@ -38,6 +38,14 @@ Dashboard
         </button>
         {%endif%}
 
+        {% if request.user|has_group:"Mentors" %}
+        <button>
+            <a href="{% url 'course-create' %}" style="text-decoration: none;color: black;">
+                Создать курс
+            </a>
+        </button>
+        {%endif%}
+
     </div>
     <div class="container">
 

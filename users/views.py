@@ -56,12 +56,7 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             dj_login(request, user)
-            if user.groups.filter(name='Students').exists():
-                return redirect('course-types')
-            if user.groups.filter(name='Mentors').exists():
-                return redirect('mentor')
-            if user.groups.filter(name='Mentors').exists() and user.groups.filter(name='Mentors').exists():
-                return redirect('course-types')
+            return redirect('course-types')
         else:
             messages.info(request, 'Username or password incorrect')
     context = {}
@@ -92,10 +87,15 @@ def profile(request):
         p_form = ProfileUpdateForm(instance=request.user)
 
     if request.user.profile.user_role == 'student':
-        # if request.user.groups.filter(name='Member').exists()
+        if request.user.groups.filter(name='Mentors').exists():
+            my_group_2 = Group.objects.get(name='Mentors')
+            my_group_2.user_set.remove(request.user)
         my_group = Group.objects.get(name='Students')
         my_group.user_set.add(request.user)
     else:
+        if request.user.groups.filter(name='Students').exists():
+            my_group_2 = Group.objects.get(name='Students')
+            my_group_2.user_set.remove(request.user)
         my_group = Group.objects.get(name='Mentors')
         my_group.user_set.add(request.user)
 

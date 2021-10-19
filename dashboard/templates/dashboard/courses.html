@@ -1,9 +1,10 @@
 {% extends 'blog/base.html' %}
 {% block title %}
-Dashboard
+Courses
 {% endblock %}
 {% block content %}
 {% load static %}
+{% load poll_extras %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="{% static 'dashboard/css/courses.css' %}" rel="stylesheet">
 
@@ -24,13 +25,27 @@ Dashboard
             Вакансии
         </button>
 
+        {% if request.user|has_group:"Students"%}
         <button>
             Стать ментором
         </button>
+        {%endif%}
 
+        {% if request.user|has_group:"Mentors" %}
         <button>
-            Создать курс
+            <a href="{% url 'course_reg' %}" style="text-decoration: none;color: black;">
+                Созданные курсы
+            </a>
         </button>
+        {%endif%}
+
+        {% if request.user|has_group:"Mentors" %}
+        <button>
+            <a href="{% url 'course-create' %}" style="text-decoration: none;color: black;">
+                Создать курс
+            </a>
+        </button>
+        {%endif%}
 
     </div>
     <div class="container">
@@ -46,224 +61,227 @@ Dashboard
         <h3>Курсы по программированию</h3>
     </div>
     <div class="dash_box align-items-center ">
+        {% for cc in courses %}
         <div class="dash_card">
             <div class="gc-1">
-                <img class="course-img" src="{% static 'main/img/main.png'%}">
-                <p class="course-cost">Free</p>
+                <img class="course-img" src="{{cc.image.url }}">
+                <p class="course-cost">{{cc.lesson_cost}} тг/час</p>
             </div>
             <div class="gc-2">
-                <p class="author_name">Sam Smith</p>
+                <div class="course-desc">
+                    <p>{{cc.course_name}}</p>
+                </div>
+                <p class="author_name">{{cc.author}}</p>
+
                 <div class="link-tags">
                     <a>#C++</a>, <a>#Java</a>
                 </div>
-                <div class="course-desc">
-                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>
-                </div>
                 <div class="calendar">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <p>20 октябрь 18:00</p>
+                    <p>{{cc.date_lesson}} {{cc.start_time}}</p>
                 </div>
 
                 <div class="time">
                     <i class="fa fa-clock" aria-hidden="true"></i>
-                    <p>50 минут</p>
+                    <p>{{cc.duration}}</p>
                 </div>
             </div>
             <div class="gc-2 gr-2 course-link">
                 <a href="#" class="go_"> GO! </a>
             </div>
         </div>
+        {% endfor %}
 
-        <div class="dash_card">
-            <div class="gc-1">
-                <img class="course-img" src="{% static 'main/img/features.png'%}">
-                <p class="course-cost">Free</p>
-            </div>
-            <div class="gc-2">
-                <p class="author_name">Sam Smith</p>
-                <div class="link-tags">
-                    <a>#C++</a>, <a>#Java</a>
-                </div>
-                <div class="course-desc">
-                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>
-                </div>
-                <div class="calendar">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <p>20 октябрь 18:00</p>
-                </div>
+        <!--        <div class="dash_card">-->
+        <!--            <div class="gc-1">-->
+        <!--                <img class="course-img" src="{% static 'main/img/features.png'%}">-->
+        <!--                <p class="course-cost">Free</p>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2">-->
+        <!--                <p class="author_name">Sam Smith</p>-->
+        <!--                <div class="link-tags">-->
+        <!--                    <a>#C++</a>, <a>#Java</a>-->
+        <!--                </div>-->
+        <!--                <div class="course-desc">-->
+        <!--                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>-->
+        <!--                </div>-->
+        <!--                <div class="calendar">-->
+        <!--                    <i class="fa fa-calendar" aria-hidden="true"></i>-->
+        <!--                    <p>20 октябрь 18:00</p>-->
+        <!--                </div>-->
 
-                <div class="time">
-                    <i class="fa fa-clock" aria-hidden="true"></i>
-                    <p>50 минут</p>
-                </div>
-            </div>
-            <div class="gc-2 gr-2 course-link">
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
+        <!--                <div class="time">-->
+        <!--                    <i class="fa fa-clock" aria-hidden="true"></i>-->
+        <!--                    <p>50 минут</p>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2 gr-2 course-link">-->
+        <!--                <a href="#" class="go_"> GO! </a>-->
+        <!--            </div>-->
+        <!--        </div>-->
 
-        <div class="dash_card">
-            <div class="gc-1">
-                <img class="course-img" src="{% static 'main/img/coins.png'%}">
-                <p class="course-cost">Free</p>
-            </div>
-            <div class="gc-2">
-                <p class="author_name">Sam Smith</p>
-                <div class="link-tags">
-                    <a>#C++</a>, <a>#Java</a>
-                </div>
-                <div class="course-desc">
-                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>
-                </div>
-                <div class="calendar">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <p>20 октябрь 18:00</p>
-                </div>
+        <!--        <div class="dash_card">-->
+        <!--            <div class="gc-1">-->
+        <!--                <img class="course-img" src="{% static 'main/img/coins.png'%}">-->
+        <!--                <p class="course-cost">Free</p>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2">-->
+        <!--                <p class="author_name">Sam Smith</p>-->
+        <!--                <div class="link-tags">-->
+        <!--                    <a>#C++</a>, <a>#Java</a>-->
+        <!--                </div>-->
+        <!--                <div class="course-desc">-->
+        <!--                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>-->
+        <!--                </div>-->
+        <!--                <div class="calendar">-->
+        <!--                    <i class="fa fa-calendar" aria-hidden="true"></i>-->
+        <!--                    <p>20 октябрь 18:00</p>-->
+        <!--                </div>-->
 
-                <div class="time">
-                    <i class="fa fa-clock" aria-hidden="true"></i>
-                    <p>50 минут</p>
-                </div>
-            </div>
-            <div class="gc-2 gr-2 course-link">
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-        <div class="dash_card">
-            <div class="gc-1">
-                <img class="course-img" src="{% static 'main/img/pricing-free.png'%}">
-                <p class="course-cost">Free</p>
-            </div>
-            <div class="gc-2">
-                <p class="author_name">Sam Smith</p>
-                <div class="link-tags">
-                    <a>#C++</a>, <a>#Java</a>
-                </div>
-                <div class="course-desc">
-                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>
-                </div>
-                <div class="calendar">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <p>20 октябрь 18:00</p>
-                </div>
+        <!--                <div class="time">-->
+        <!--                    <i class="fa fa-clock" aria-hidden="true"></i>-->
+        <!--                    <p>50 минут</p>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2 gr-2 course-link">-->
+        <!--                <a href="#" class="go_"> GO! </a>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="dash_card">-->
+        <!--            <div class="gc-1">-->
+        <!--                <img class="course-img" src="{% static 'main/img/pricing-free.png'%}">-->
+        <!--                <p class="course-cost">Free</p>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2">-->
+        <!--                <p class="author_name">Sam Smith</p>-->
+        <!--                <div class="link-tags">-->
+        <!--                    <a>#C++</a>, <a>#Java</a>-->
+        <!--                </div>-->
+        <!--                <div class="course-desc">-->
+        <!--                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>-->
+        <!--                </div>-->
+        <!--                <div class="calendar">-->
+        <!--                    <i class="fa fa-calendar" aria-hidden="true"></i>-->
+        <!--                    <p>20 октябрь 18:00</p>-->
+        <!--                </div>-->
 
-                <div class="time">
-                    <i class="fa fa-clock" aria-hidden="true"></i>
-                    <p>50 минут</p>
-                </div>
-            </div>
-            <div class="gc-2 gr-2 course-link">
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-        <div class="dash_card">
-            <div class="gc-1">
-                <img class="course-img" src="{% static 'main/img/hero-bg.png'%}">
-                <p class="course-cost">Free</p>
-            </div>
-            <div class="gc-2">
-                <p class="author_name">Sam Smith</p>
-                <div class="link-tags">
-                    <a>#C++</a>, <a>#Java</a>
-                </div>
-                <div class="course-desc">
-                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>
-                </div>
-                <div class="calendar">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <p>20 октябрь 18:00</p>
-                </div>
+        <!--                <div class="time">-->
+        <!--                    <i class="fa fa-clock" aria-hidden="true"></i>-->
+        <!--                    <p>50 минут</p>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2 gr-2 course-link">-->
+        <!--                <a href="#" class="go_"> GO! </a>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="dash_card">-->
+        <!--            <div class="gc-1">-->
+        <!--                <img class="course-img" src="{% static 'main/img/hero-bg.png'%}">-->
+        <!--                <p class="course-cost">Free</p>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2">-->
+        <!--                <p class="author_name">Sam Smith</p>-->
+        <!--                <div class="link-tags">-->
+        <!--                    <a>#C++</a>, <a>#Java</a>-->
+        <!--                </div>-->
+        <!--                <div class="course-desc">-->
+        <!--                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>-->
+        <!--                </div>-->
+        <!--                <div class="calendar">-->
+        <!--                    <i class="fa fa-calendar" aria-hidden="true"></i>-->
+        <!--                    <p>20 октябрь 18:00</p>-->
+        <!--                </div>-->
 
-                <div class="time">
-                    <i class="fa fa-clock" aria-hidden="true"></i>
-                    <p>50 минут</p>
-                </div>
-            </div>
-            <div class="gc-2 gr-2 course-link">
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-        <div class="dash_card">
-            <div class="gc-1">
-                <img class="course-img" src="{% static 'main/img/logoStud.jpeg'%}">
-                <p class="course-cost">Free</p>
-            </div>
-            <div class="gc-2">
-                <p class="author_name">Sam Smith</p>
-                <div class="link-tags">
-                    <a>#C++</a>, <a>#Java</a>
-                </div>
-                <div class="course-desc">
-                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>
-                </div>
-                <div class="calendar">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <p>20 октябрь 18:00</p>
-                </div>
+        <!--                <div class="time">-->
+        <!--                    <i class="fa fa-clock" aria-hidden="true"></i>-->
+        <!--                    <p>50 минут</p>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2 gr-2 course-link">-->
+        <!--                <a href="#" class="go_"> GO! </a>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="dash_card">-->
+        <!--            <div class="gc-1">-->
+        <!--                <img class="course-img" src="{% static 'main/img/logoStud.jpeg'%}">-->
+        <!--                <p class="course-cost">Free</p>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2">-->
+        <!--                <p class="author_name">Sam Smith</p>-->
+        <!--                <div class="link-tags">-->
+        <!--                    <a>#C++</a>, <a>#Java</a>-->
+        <!--                </div>-->
+        <!--                <div class="course-desc">-->
+        <!--                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>-->
+        <!--                </div>-->
+        <!--                <div class="calendar">-->
+        <!--                    <i class="fa fa-calendar" aria-hidden="true"></i>-->
+        <!--                    <p>20 октябрь 18:00</p>-->
+        <!--                </div>-->
 
-                <div class="time">
-                    <i class="fa fa-clock" aria-hidden="true"></i>
-                    <p>50 минут</p>
-                </div>
-            </div>
-            <div class="gc-2 gr-2 course-link">
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-        <div class="dash_card">
-            <div class="gc-1">
-                <img class="course-img" src="{% static 'main/img/features-2.png'%}">
-                <p class="course-cost">Free</p>
-            </div>
-            <div class="gc-2">
-                <p class="author_name">Sam Smith</p>
-                <div class="link-tags">
-                    <a>#C++</a>, <a>#Java</a>
-                </div>
-                <div class="course-desc">
-                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>
-                </div>
-                <div class="calendar">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <p>20 октябрь 18:00</p>
-                </div>
+        <!--                <div class="time">-->
+        <!--                    <i class="fa fa-clock" aria-hidden="true"></i>-->
+        <!--                    <p>50 минут</p>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2 gr-2 course-link">-->
+        <!--                <a href="#" class="go_"> GO! </a>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="dash_card">-->
+        <!--            <div class="gc-1">-->
+        <!--                <img class="course-img" src="{% static 'main/img/features-2.png'%}">-->
+        <!--                <p class="course-cost">Free</p>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2">-->
+        <!--                <p class="author_name">Sam Smith</p>-->
+        <!--                <div class="link-tags">-->
+        <!--                    <a>#C++</a>, <a>#Java</a>-->
+        <!--                </div>-->
+        <!--                <div class="course-desc">-->
+        <!--                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>-->
+        <!--                </div>-->
+        <!--                <div class="calendar">-->
+        <!--                    <i class="fa fa-calendar" aria-hidden="true"></i>-->
+        <!--                    <p>20 октябрь 18:00</p>-->
+        <!--                </div>-->
 
-                <div class="time">
-                    <i class="fa fa-clock" aria-hidden="true"></i>
-                    <p>50 минут</p>
-                </div>
-            </div>
-            <div class="gc-2 gr-2 course-link">
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-        <div class="dash_card">
-            <div class="gc-1">
-                <img class="course-img" src="{% static 'main/img/features-3.png'%}">
-                <p class="course-cost">Free</p>
-            </div>
-            <div class="gc-2">
-                <p class="author_name">Sam Smith</p>
-                <div class="link-tags">
-                    <a>#C++</a>, <a>#Java</a>
-                </div>
-                <div class="course-desc">
-                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>
-                </div>
-                <div class="calendar">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <p>20 октябрь 18:00</p>
-                </div>
+        <!--                <div class="time">-->
+        <!--                    <i class="fa fa-clock" aria-hidden="true"></i>-->
+        <!--                    <p>50 минут</p>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2 gr-2 course-link">-->
+        <!--                <a href="#" class="go_"> GO! </a>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="dash_card">-->
+        <!--            <div class="gc-1">-->
+        <!--                <img class="course-img" src="{% static 'main/img/features-3.png'%}">-->
+        <!--                <p class="course-cost">Free</p>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2">-->
+        <!--                <p class="author_name">Sam Smith</p>-->
+        <!--                <div class="link-tags">-->
+        <!--                    <a>#C++</a>, <a>#Java</a>-->
+        <!--                </div>-->
+        <!--                <div class="course-desc">-->
+        <!--                    <p>Изучение АДС, а именно про Hashing maps, Stuck, Queue</p>-->
+        <!--                </div>-->
+        <!--                <div class="calendar">-->
+        <!--                    <i class="fa fa-calendar" aria-hidden="true"></i>-->
+        <!--                    <p>20 октябрь 18:00</p>-->
+        <!--                </div>-->
 
-                <div class="time">
-                    <i class="fa fa-clock" aria-hidden="true"></i>
-                    <p>50 минут</p>
-                </div>
-            </div>
-            <div class="gc-2 gr-2 course-link">
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
+        <!--                <div class="time">-->
+        <!--                    <i class="fa fa-clock" aria-hidden="true"></i>-->
+        <!--                    <p>50 минут</p>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <div class="gc-2 gr-2 course-link">-->
+        <!--                <a href="#" class="go_"> GO! </a>-->
+        <!--            </div>-->
+        <!--        </div>-->
 
     </div>
     <div style="text-align: center">
