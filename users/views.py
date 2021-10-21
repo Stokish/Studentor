@@ -104,7 +104,10 @@ def profile(request):
         'p_form': p_form
     }
 
-    return render(request, 'main/userprofile.html', context)
+    if request.user.groups.filter(name='Students').exists():
+        return render(request, 'main/profile.html', context)
+    else:
+        return render(request, 'main/profile-mentor.html', context)
 
 
 @login_required
