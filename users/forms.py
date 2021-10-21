@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 USER_ROLES = (
-        ('student', 'Student'),
-        ('mentor', 'Mentor')
-    )
+    ('student', 'Student'),
+    ('mentor', 'Mentor')
+)
 
 
 class CreateUserForm(UserCreationForm):
@@ -52,5 +52,5 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image', 'bio', 'university', 'address', 'telephone', 'website', 'user_role']
-
+        fields = ['image', 'bio', 'university', 'address', 'telephone', 'website',
+                  'user_role']

@@ -21,7 +21,17 @@ class Profile(models.Model):
         ('student', 'Student'),
         ('mentor', 'Mentor')
     )
-    user_role = models.CharField(max_length=10, choices=USER_ROLES, default='student')
+    GENDER = (
+        ('m', 'Male'),
+        ('f', 'Female'),
+        ('o', 'Other')
+    )
+    user_role = models.CharField(max_length=10, choices=USER_ROLES)
+
+    # gender = models.CharField(max_length=10, choices=GENDER)
+    # date_of_birth = models.DateField()
+    # strong_at = models.TextField()
+    # hobbies = models.TextField()
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -33,4 +43,3 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
-

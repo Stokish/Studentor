@@ -92,6 +92,7 @@ def profile(request):
             my_group_2.user_set.remove(request.user)
         my_group = Group.objects.get(name='Students')
         my_group.user_set.add(request.user)
+
     else:
         if request.user.groups.filter(name='Students').exists():
             my_group_2 = Group.objects.get(name='Students')
@@ -104,7 +105,10 @@ def profile(request):
         'p_form': p_form
     }
 
-    return render(request, 'main/userprofile.html', context)
+    if request.user.groups.filter(name='Students').exists():
+        return render(request, 'main/profile.html', context)
+    else:
+        return render(request, 'main/profile-mentor.html', context)
 
 
 @login_required

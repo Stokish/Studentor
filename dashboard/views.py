@@ -18,17 +18,27 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView
-
+from django.contrib.auth.models import Group
 from .forms import KeywordForm
 from .forms import DirectionForm
 from .forms import CourseForm
-from .models import courses
+from .models import courses, courseDirection
+
+
+class DirectionList(ListView):
+    model = courseDirection
+    template_name = 'dashboard/course-types.html'
+    context_object_name = 'direction'
 
 
 class CourseList(ListView):
     model = courses
     template_name = 'dashboard/courses.html'
     context_object_name = 'courses'
+
+    # def get_queryset(self):
+    #     self.subject = get_object_or_404(courseDirection, name=self.kwargs['subject'])
+    #     return courses.objects.filter(subject=self.subject)
 
 
 class CourseCreateView(LoginRequiredMixin, CreateView):
@@ -47,9 +57,13 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
         return reverse('course-types')
 
 
-def course_types(request):
-    return render(request, 'dashboard/course-types.html')
-
+def change_role(request):
+    if request.user.groups.filter(name='Students').exists():
+        my_group_2 = Group.objects.get(name='Students')
+        my_group_2.user_set.remove(request.user)
+    my_group = Group.objects.get(name='Mentors')
+    my_group.user_set.add(request.user)
+    return redirect('course-types')
 
 # def Course_list(request):
 #     return render(request, 'dashboard/courses.html')

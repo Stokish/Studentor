@@ -26,7 +26,7 @@ Dashboard
 
         {% if request.user|has_group:"Students"%}
         <button>
-            Стать ментором
+            <a href="{% url 'change-role'%}" style="text-decoration: none;color: black;">Стать ментором</a>
         </button>
         {%endif%}
 
@@ -60,68 +60,14 @@ Dashboard
         <h1>Направления</h1>
     </div>
     <div class="dash_box container align-items-center ">
-        <div class="dash_card orange">
+        {% for dd in direction %}
+        <div class="dash_card orange" style="background-color: #FFE9F9">
             <div class="card_info">
-                <p class="card_name">1Программирование</p>
+                <p class="card_name">{{dd.name}}</p>
                 <a href="{% url 'courses'%}" class="go_"> GO! </a>
             </div>
         </div>
-
-        <div class="dash_card green">
-            <div class="card_info">
-                <p class="card_name">2Программирование</p>
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-
-        <div class="dash_card red">
-            <div class="card_info">
-                <p class="card_name">3Программирование</p>
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-
-        <div class="dash_card red">
-            <div class="card_info">
-                <p class="card_name">4Программирование</p>
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-
-        <div class="dash_card purple">
-            <div class="card_info">
-                <p class="card_name">5Программирование</p>
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-
-        <div class="dash_card purple">
-            <div class="card_info">
-                <p class="card_name">6Программирование</p>
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-
-        <div class="dash_card pink">
-            <div class="card_info">
-                <p class="card_name">7Программирование</p>
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-
-        <div class="dash_card pink">
-            <div class="card_info">
-                <p class="card_name">8Программирование</p>
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
-
-        <div class="dash_card pink">
-            <div class="card_info">
-                <p class="card_name">8Программирование</p>
-                <a href="#" class="go_"> GO! </a>
-            </div>
-        </div>
+        {%endfor%}
     </div>
     <div style="text-align: center">
         <button id="more" class="go_"> Показать больше направлений</button>
