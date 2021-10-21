@@ -9,6 +9,7 @@ USER_ROLES = (
 )
 
 
+
 class CreateUserForm(UserCreationForm):
     roles = forms.ChoiceField(label="roles", widget=forms.RadioSelect, choices=USER_ROLES)
 

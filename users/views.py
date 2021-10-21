@@ -110,6 +110,7 @@ def profile(request):
         return render(request, 'main/profile-mentor.html', context)
 
 
+
 @login_required
 def profiles(request, pk, *args, **kwargs):
     global is_follower

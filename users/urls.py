@@ -4,9 +4,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
+
 urlpatterns = [
                   path('', views.index, name='index'),
-                  #path('choose-role', views.choose_role, name='choose-role'),
                   path('newProfile', views.get_profile, name='new-profile'),
                   path('mentor-profile', views.get_mentor_profile, name='new-mentor-profile'),
                   path('vacancy', views.get_vacancy, name='get-vacancy'),

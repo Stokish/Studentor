@@ -57,6 +57,7 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
         return reverse('course-types')
 
 
+
 def change_role(request):
     if request.user.groups.filter(name='Students').exists():
         my_group_2 = Group.objects.get(name='Students')
