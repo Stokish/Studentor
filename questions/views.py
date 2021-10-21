@@ -219,7 +219,3 @@ class AddCommentDislike(LoginRequiredMixin, View):
 
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)
-
-
-def about(request):
-    return render(request, 'blog/about.html', {'title': 'About'})

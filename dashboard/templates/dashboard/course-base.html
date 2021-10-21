@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+{% block content %}
+{% load static %}
+{% load poll_extras %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'dashboard/js/buttons.js' %}"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    {% block base %}
+    <div class="dashboard_nav container d-flex " style="margin-top: 6%;">
+        <button>
+            Мои курсы
+        </button>
+
+        <button>
+            Вакансии
+        </button>
+
+        {% if request.user|has_group:"Students"%}
+        <button>
+            Стать ментором
+        </button>
+        {%endif%}
+
+        {% if request.user|has_group:"Mentors" %}
+        <button>
+            <a href="{% url 'course_reg' %}" style="text-decoration: none;color: black;">
+                Созданные курсы
+            </a>
+        </button>
+        {%endif%}
+
+        {% if request.user|has_group:"Mentors" %}
+        <button>
+            <a href="{% url 'course-create' %}" style="text-decoration: none;color: black;">
+                Создать курс
+            </a>
+        </button>
+        {%endif%}
+
+    </div>
+    <div class="container">
+
+        <form action="" class="search-bar">
+            <input type="search" name="search" pattern=".*\S.*" required>
+            <button class="search-btn" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+    {% endblock base %}
+<div class="my-4">
+    {% block main_content %}
+
+    {% endblock main_content %}
+</div>
+{% endblock content %}

@@ -339,6 +339,9 @@ section {
   .navbar ul {
     display: none;
   }
+  .navbar a{
+    justify-content: initial;
+  }
 }
 
 .navbar-mobile {

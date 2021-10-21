@@ -95,7 +95,7 @@
 	box-shadow:0 1px 1px rgba(0,0,0,0.08),0 2px 2px rgba(0,0,0,0.12),0 4px 4px rgba(0,0,0,0.16),0 8px 8px rgba(0,0,0,0.2);
 	width: 30%;
 	padding: 2%;
-	background-color: #caf0f8;
+	background-color: rgba(28,142,242,0.25);
 	display: none;
 	border-radius: 1.25em;
 	margin: 1em auto ;
@@ -196,19 +196,19 @@
 	background-color:white;
 	font-weight: bold;
 }
-.more {
-	margin-top: 1em;
-	text-decoration: none;
-	color:black;
-	border-style: solid;
-	border-width: 1px ;
-	border-color: black;
-	border-radius: 1em;
-	line-height: 1.25em;
-	padding: 0.4426em 1.125em;
-	transition: linear 0.0625s;
+#more {
+    margin-top: 1em;
+    text-decoration: none;
+    color: black;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 1em;
+    line-height: 1.25em;
+    padding: 0.4426em 1.125em;
+    transition: linear 0.0625s;
 }
-.more:hover{
+#more:hover{
 	background-color:white;
 	font-weight: bold;
 }

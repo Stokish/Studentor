@@ -32,11 +32,8 @@ class CourseList(ListView):
 
 
 class CourseCreateView(LoginRequiredMixin, CreateView):
-    model = courses
-    fields = ['course_name', 'description', 'subject', 'image', 'lesson_cost', 'date_lesson', 'start_time', 'end_time',
-              'duration',
-              'lesson_type',
-              'lesson_url', 'max_student']
+    form_class = CourseForm
+
     template_name = 'dashboard/createcourse.html'
 
     def form_valid(self, form):
