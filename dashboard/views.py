@@ -64,6 +64,3 @@ def change_role(request):
     my_group = Group.objects.get(name='Mentors')
     my_group.user_set.add(request.user)
     return redirect('course-types')
-
-# def Course_list(request):
-#     return render(request, 'dashboard/courses.html')

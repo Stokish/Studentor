@@ -151,3 +151,4 @@ a:before, a:after, a > span:before, a > span:after {
 .hover-2:hover:before, .hover-2:hover:after {
     transform: scale(1, 1);
 }
+
