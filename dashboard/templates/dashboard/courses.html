@@ -2,21 +2,68 @@
 {% block title %}
 Courses
 {% endblock %}
-{% block main_content %}
+{% block content %}
 {% load static %}
 {% load poll_extras %}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="{% static 'dashboard/css/courses.css' %}" rel="stylesheet">
 
 <script src="{% static 'dashboard/js/buttons.js' %}"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+<section class="d_main ">
+    <div class="dashboard_nav container d-flex ">
+
+        <button>
+            Мои курсы
+        </button>
+
+        <button>
+            Вакансии
+        </button>
+
+        {% if request.user|has_group:"Students"%}
+        <button>
+            <a href="{% url 'change-role'%}" style="text-decoration: none;color: black;">Стать ментором</a>
+        </button>
+        {%endif%}
+
+        {% if request.user|has_group:"Mentors" %}
+        <button>
+            <a href="{% url 'course_reg' %}" style="text-decoration: none;color: black;">
+                Созданные курсы
+            </a>
+        </button>
+        {%endif%}
+
+        {% if request.user|has_group:"Mentors" %}
+        <button>
+            <a href="{% url 'course-create' %}" style="text-decoration: none;color: black;">
+                Создать курс
+            </a>
+        </button>
+        {%endif%}
 
 
+    </div>
+    <div class="container">
+
+        <form action="" class="search-bar">
+            <input type="search" name="search" pattern=".*\S.*" required>
+            <button class="search-btn" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
 
     <div class="container">
         <h3>Курсы по программированию</h3>
     </div>
-    <div class="dash_box align-items-center ">
+
+    <div class="dash_box align-items-center">
         {% for cc in courses %}
         <div class="dash_card">
             <div class="gc-1">
@@ -43,13 +90,30 @@ Courses
                 </div>
             </div>
             <div class="gc-2 gr-2 course-link">
-                <a href="#" class="go_"> GO! </a>
+                <a href="#" class="go_" onclick="show()">GO!</a>
             </div>
         </div>
         {% endfor %}
     </div>
+    <!--    {% for cc in courses %}-->
+    <!--    <div class="container" id="details"-->
+    <!--         style="display: none; width:70%; height:70%; background-color: #0dcaf0; align-content: center">-->
+    <!--        <p>{{cc.description}}</p>-->
+    <!--    </div>-->
+    <!--    {% endfor %}-->
+    <!--    <script>-->
+    <!--        function show() {-->
+    <!--            var div = document.getElementById("details");-->
+    <!--            if (div.style.display !== "none") {-->
+    <!--                div.style.display = "none";-->
+    <!--            } else {-->
+    <!--                div.style.display = "block";-->
+    <!--            }-->
+    <!--        }-->
+    <!--    </script>-->
     <div style="text-align: center">
-        <button id="more" class="go_" data="курсы"> Показать больше курсов</button>
+        <button id="more" class="go_"> Показать больше курсов</button>
     </div>
 
-{% endblock main_content %}
+</section>
+{% endblock content %}

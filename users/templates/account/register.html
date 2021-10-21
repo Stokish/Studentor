@@ -30,15 +30,21 @@
                     <form method="POST" class="register-form" id="register-form">
                         {%csrf_token%}
                         <div class="form-group">
-                            <label><i class="bi bi-award-fill"></i></label>
-                            {{form.username}}
+                            {{form.first_name}}
                         </div>
                         <div class="form-group">
-                            <label><i class="zmdi zmdi-email"></i></label>
+                            {{form.last_name}}
+                        </div>
+                        <div class="form-group">
+                            <!--                            <label><i class="zmdi zmdi-email"></i></label>-->
                             {{form.email}}
                         </div>
                         <div class="form-group">
-                            <label><i class="zmdi zmdi-lock"></i></label>
+                            <!--                            <label><i class="bi bi-award-fill"></i></label>-->
+                            {{form.username}}
+                        </div>
+                        <div class="form-group">
+                            <!--                            <label><i class="zmdi zmdi-lock"></i></label>-->
                             {{form.password1}}
                         </div>
                         <div class="form-group">
