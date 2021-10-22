@@ -1,17 +1,19 @@
+from random import sample
+
 from django.db import models
 from django.contrib.auth.models import User
 
 
-class courseKeywords(models.Model):
+class CourseKeywords(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
-class courseDirection(models.Model):
+class CourseDirection(models.Model):
     name = models.CharField(max_length=100)
-    keywords = models.ManyToManyField(courseKeywords)
+    keywords = models.ManyToManyField(CourseKeywords)
 
     class Meta:
         ordering = ['name']
@@ -20,14 +22,14 @@ class courseDirection(models.Model):
         return self.name
 
 
-class courses(models.Model):
+class Course(models.Model):
     LESSON_TYPES = (
         ('1', 'Mono'),
         ('2', 'Regular')
     )
     course_name = models.CharField(max_length=200)
     description = models.TextField()
-    subject = models.ForeignKey(courseDirection, on_delete=models.CASCADE)
+    subject = models.ForeignKey(CourseDirection, on_delete=models.CASCADE)
     image = models.ImageField(default='clip-reading-books.png', upload_to='course_pics')
     lesson_cost = models.IntegerField()
     date_lesson = models.DateField()
@@ -38,7 +40,16 @@ class courses(models.Model):
     lesson_url = models.URLField(max_length=200)
     max_student = models.IntegerField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='course_author')
-    students = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applied_students', null=True)
+    students = models.ManyToManyField(User, related_name='applied_students', blank=True)
+    key = models.TextField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        super(Course, self).save()
+        self.key = self.course_name + self.author.username + str(self.lesson_cost) + self.subject.name
+        self.key = ''.join(sample(self.key, k=len(self.key)))
+        self.key += str(self.pk)
+        super(Course, self).save()
+
 
     def __str__(self):
         return self.course_name

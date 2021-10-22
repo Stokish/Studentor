@@ -3,8 +3,16 @@
 {% load static %}
 {% load poll_extras %}
 
+    {% url 'course-types' as course_types %}
+    {% url 'courses' as courses_link %}
+    {% url 'my-courses' as my_courses %}
+    {% url 'course-create' as course_create %}
+    {% url 'course-detail' as course_detail %}
+    {% url 'course_reg' as course_reg %}
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'dashboard/js/buttons.js' %}"></script>
+<link href="{% static 'dashboard/css/dashboard-header.css' %}" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
       integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
@@ -12,8 +20,26 @@
 
     {% block base %}
     <div class="dashboard_nav container d-flex " style="margin-top: 6%;">
-        <button>
-            Мои курсы
+        <button class="{% if request.path == course_types or request.path == courses_link %}
+                        dashboard_nav_active
+                      {% endif %}>">
+            <a
+               href="{% url 'course-types' %}"
+               style="text-decoration: none;color: black;">
+
+                Все курсы
+            </a>
+        </button>
+
+
+        <button class="{% ifequal request.path my_courses %}
+                        dashboard_nav_active
+                      {% endifequal %}">
+            <a
+               href="{% url 'my-courses' %}"
+               style="text-decoration: none;color: black;">
+                Мои курсы
+            </a>
         </button>
 
         <button>
@@ -27,16 +53,24 @@
         {%endif%}
 
         {% if request.user|has_group:"Mentors" %}
-        <button>
-            <a href="{% url 'course_reg' %}" style="text-decoration: none;color: black;">
+        <button class="{% ifequal request.path course_reg %}
+                        dashboard_nav_active
+                      {% endifequal %}">
+            <a
+               href="{% url 'course_reg' %}"
+               style="text-decoration: none;color: black;">
                 Созданные курсы
             </a>
         </button>
         {%endif%}
 
         {% if request.user|has_group:"Mentors" %}
-        <button>
-            <a href="{% url 'course-create' %}" style="text-decoration: none;color: black;">
+        <button class="{% ifequal request.path course_create %}
+                        dashboard_nav_active
+                      {% endifequal %}">
+            <a
+               href="{% url 'course-create' %}"
+               style="text-decoration: none;color: black;">
                 Создать курс
             </a>
         </button>

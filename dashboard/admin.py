@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import courseKeywords, courseDirection, courses
+from .models import CourseKeywords, CourseDirection, Course
 
-admin.site.register(courseKeywords)
-admin.site.register(courseDirection)
-admin.site.register(courses)
+admin.site.register(CourseKeywords)
+admin.site.register(CourseDirection)
+admin.site.register(Course)

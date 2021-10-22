@@ -1,0 +1,59 @@
+{% extends 'dashboard/course-base.html' %}
+{% block title %}
+Курс - {{ course.course_name }}
+{% endblock %}
+{% load static %}
+{% load poll_extras %}
+{% block main_content %}
+    <link href="{% static 'dashboard/css/course-detail.css' %}" rel="stylesheet">
+    {% if email_msg != '' %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+        $(document).ready(function(){
+            swal({
+                      icon: 'success',
+                      title: "Почта",
+                      text: '{{ email_msg }}',
+                      button: "OK",
+              });
+        })
+        </script>
+    {% endif %}
+    </script>
+    <div class="container card-main">
+            <div class="gc-1">
+                <img class="course-img" src="{{course.image.url }}">
+                <p class="course-cost">{{course.lesson_cost}} тг/час</p>
+            </div>
+            <div class="gc-2">
+                <div class="course-desc">
+                    <p>{{course.course_name}}</p>
+                </div>
+                <p class="author_name">Автор: {{course.author}}</p>
+
+                <div class="link-tags">
+                    <a>#C++</a>, <a>#Java</a>
+                </div>
+                <div class="calendar">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <p>{{course.date_lesson}} {{course.start_time}}</p>
+                </div>
+
+                <div class="time">
+                    <i class="fa fa-clock" aria-hidden="true"></i>
+                    <p>{{course.duration}}</p>
+                </div>
+            </div>
+            <div class="gc-2 gr-2 course-link">
+                <form method="POST" action="{% url 'course-detail' course.pk %}">
+                    {% csrf_token %}
+                    {% if user in course.students.all %}
+                        <button type="submit" class="go_" disabled> Вы уже записаны на курс </button>
+                    {% else %}
+                        <button type="submit" class="go_"> Записаться на курс </button>
+                    {% endif %}
+                </form>
+            </div>
+
+    </div>
+{% endblock main_content %}

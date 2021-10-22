@@ -1,8 +1,7 @@
 import datetime
+from random import sample
 
-from .models import courseKeywords
-from .models import courseDirection
-from .models import courses
+from .models import CourseKeywords, CourseDirection, Course
 from django.forms import ModelForm, TextInput, Textarea, TimeInput, CharField
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -15,7 +14,7 @@ class DateInput(forms.DateInput):
 
 class KeywordForm(ModelForm):
     class Meta:
-        model = courseKeywords
+        model = CourseKeywords
         fields = ['name']
         widgets = {
             "name": TextInput(attrs={
@@ -26,7 +25,7 @@ class KeywordForm(ModelForm):
 
 class DirectionForm(ModelForm):
     class Meta:
-        model = courseDirection
+        model = CourseDirection
         fields = ['name', 'keywords']
         widgets = {
             "name": TextInput(attrs={
@@ -50,7 +49,7 @@ class CourseForm(forms.ModelForm):
         return date
 
     class Meta:
-        model = courses
+        model = Course
         fields = ['subject',
                   'image',
                   'course_name',
@@ -96,6 +95,6 @@ class CourseForm(forms.ModelForm):
             }),
             "lesson_cost": TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Цена вашего курса'
+                'placeholder': 'Цена вашего курса в тг/час'
             }),
         }

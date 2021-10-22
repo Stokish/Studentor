@@ -14,7 +14,12 @@ Courses
 
 
     <div class="container">
-        <h3>Курсы по программированию</h3>
+            {% if subject == '' %}
+                <h3>Курсы по "{{ subject }}"</h3>
+            {% else %}
+                <h3>Мои курсы</h3>
+            {% endif %}
+
     </div>
     <div class="dash_box align-items-center ">
         {% for cc in courses %}
@@ -27,7 +32,7 @@ Courses
                 <div class="course-desc">
                     <p>{{cc.course_name}}</p>
                 </div>
-                <p class="author_name">{{cc.author}}</p>
+                <p class="author_name">Автор: {{cc.author}}</p>
 
                 <div class="link-tags">
                     <a>#C++</a>, <a>#Java</a>
@@ -43,7 +48,7 @@ Courses
                 </div>
             </div>
             <div class="gc-2 gr-2 course-link">
-                <a href="#" class="go_"> GO! </a>
+                <a href="{% url 'course-detail' cc.pk %}" class="go_"> GO! </a>
             </div>
         </div>
         {% endfor %}

@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var t = false;
-    if( $('.dash_card').length <= 6){
-        $('#more').hide()
+    if( $('.dash_card').length > 6){
+        $('#more').show()
     }
 
     $('#more').click( function () {

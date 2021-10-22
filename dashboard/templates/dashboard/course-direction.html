@@ -1,0 +1,32 @@
+{% extends 'dashboard/course-base.html' %}
+{% block title %}
+Dashboard
+{% endblock %}
+{% load static %}
+{% load poll_extras %}
+{% block main_content %}
+
+<link href="{% static 'dashboard/css/course-direction.css' %}" rel="stylesheet">
+<script src="{% static 'dashboard/js/buttons.js' %}"></script>
+
+
+    <div class="container">
+        <h1>Направления</h1>
+    </div>
+    <div class="dash_box container align-items-center ">
+    {% for direction in directions %}
+        <div class="dash_card">
+            <div class="card_info">
+                <p class="card_name">{{ direction.name }}</p>
+                <a href="{% url 'courses' direction.name %}" class="go_"> GO! </a>
+            </div>
+        </div>
+    {% endfor %}
+
+
+    </div>
+    <div style="text-align: center">
+        <button style="display: none" id="more" class="go_" data="направления"> Показать больше направлений</button>
+    </div>
+
+{% endblock main_content %}
