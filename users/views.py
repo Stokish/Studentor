@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
-
+from json import dumps as jdumps
 from dashboard.models import Course
 from .forms import CreateUserForm
 from django.contrib.auth import authenticate, login as dj_login, logout
@@ -44,7 +44,13 @@ def register(request):
 
             # messages.success(request, 'Account was created for ' + user)
             return redirect('signin')
-    context = {'form': form}
+    errors = jdumps(form.errors.as_text())
+    errors = errors.replace("password2", "password")
+
+    context = {
+        'form': form,
+        'errors': errors
+    }
     return render(request, 'account/register.html', context)
 
 
