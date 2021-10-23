@@ -174,15 +174,15 @@ Create notes
         </div>
     </div>
     <!--        Schedule part-->
-    {% for cc in courses %}
+    {% for course in courses %}
     <div class="schedule">
         <div class="row" style="margin-top: 5%;">
             <div class="col-3">
                 <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
                     <div class="text-center">
-                        <span class="time">24 September</span>
+                       <span class="time">{{ course.date_lesson }}</span>
                         <br/>
-                        <span class="text-secondary">10:00-11:00AM</span>
+                        <span class="text-secondary">{{ course.start_time }}-{{ course.end_time }}</span>
                     </div>
                 </div>
             </div>
@@ -194,7 +194,7 @@ Create notes
                     <div class="text-center">
                         <span class="time">Lesson</span>
                         <br/>
-                        <span class="text-secondary">{{cc.course_name}}</span>
+                        <span class="text-secondary">{{course.course_name}}</span>
                     </div>
                 </div>
             </div>
@@ -204,7 +204,11 @@ Create notes
                     <div class="text-center">
                         <span class="time">Student</span>
                         <br/>
-                        <span class="text-secondary">Laura Almuratovna</span>
+                    <span class="text-secondary">
+                        {% for student in course.students.all %}
+                            {{ student.username }};
+                        {% endfor %}
+                    </span>
                     </div>
                 </div>
             </div>
@@ -218,90 +222,6 @@ Create notes
         </div>
     </div>
     {%endfor%}
-
-    <div class="schedule">
-        <div class="row" style="margin-top: 5%;">
-
-            <div class="col-3">
-                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
-                    <div class="text-center">
-                        <span class="time">24 September</span>
-                        <br/>
-                        <span class="text-secondary">10:00-11:00AM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-3">
-                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
-                    <div class="text-center">
-                        <span class="time">Lesson</span>
-                        <br/>
-                        <span class="text-secondary">Java Programming</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-3">
-                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
-                    <div class="text-center">
-                        <span class="time">Student</span>
-                        <br/>
-                        <span class="text-secondary">John Legend, Laura Almuratovna</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-3" style="margin-top: 1.3%">
-                <div style="justify-content: center">
-                    <button type="button" class="btn btn-primary">Join the lesson
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="schedule">
-        <div class="row" style="margin-top: 5%;">
-
-            <div class="col-3">
-                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
-                    <div class="text-center">
-                        <span class="time">24 September</span>
-                        <br/>
-                        <span class="text-secondary">10:00-11:00AM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-3">
-                <div class="col border-right border-info" style="margin-top: 3%; margin-bottom: 3%">
-                    <div class="text-center">
-                        <span class="time">Lesson</span>
-                        <br/>
-                        <span class="text-secondary">Java Programming</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-3">
-                <div class="col border-right border-info" style="margin-top: 8%; margin-bottom: 5%">
-                    <div class="text-center">
-                        <span class="time">Student</span>
-                        <br/>
-                        <span class="text-secondary">John Legend, Laura Almuratovna, Mark Bob</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-3" style="margin-top: 1.3%">
-                <div style="justify-content: center">
-                    <button type="button" class="btn btn-primary">Join the lesson
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <p style="color: rgba(188, 220, 248, 0.35);">pp</p>
 

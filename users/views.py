@@ -2,13 +2,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
 
+from dashboard.models import Course
 from .forms import CreateUserForm
 from django.contrib.auth import authenticate, login as dj_login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import UserUpdateForm, ProfileUpdateForm
 from django.core.files.storage import FileSystemStorage
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from .decorators import allowed_users, unauthenticated_user
 from .models import Profile
 
@@ -92,16 +93,21 @@ def profile(request):
             my_group_2.user_set.remove(request.user)
         my_group = Group.objects.get(name='Students')
         my_group.user_set.add(request.user)
+        # course to which student has applied
+        courses = User.objects.prefetch_related('applied_students').get(pk=request.user.pk).applied_students.all()
     else:
         if request.user.groups.filter(name='Students').exists():
             my_group_2 = Group.objects.get(name='Students')
             my_group_2.user_set.remove(request.user)
         my_group = Group.objects.get(name='Mentors')
         my_group.user_set.add(request.user)
+        # mentor's courses
+        courses = Course.objects.filter(author=request.user.pk)
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'courses': courses,
     }
 
     if request.user.groups.filter(name='Students').exists():
