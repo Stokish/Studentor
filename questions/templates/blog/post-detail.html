@@ -12,7 +12,6 @@ $( document ).ready(function() {
     $(".btn-reply").click(function () {
 
         var x = $("#rep-"+this.id +"")
-        console.log(x)
         var label = x.find("label[for='id_text']")
         label.text("Ваш комментарий:")
         var btn = x.find("button.btn-success")

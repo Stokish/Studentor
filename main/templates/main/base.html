@@ -74,7 +74,7 @@
                                     <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
                                     <a class="nav-link" href="{% url 'my-courses' %}">Dashboard</a>
                                     <a class="nav-link" href="{% url 'signout'%}" style="color: darkred">Выйти</a>
-                                {% endif %}
+                            {% endif %}
 
 
                             </ul>
@@ -109,6 +109,16 @@
 
     {%block content%}{% endblock %}
 </main>
+<!-- Vendor JS Files -->
+<script src="{% static 'main/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'main/vendor/aos/aos.js' %}"></script>
+<script src="{% static 'main/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'main/vendor/glightbox/js/glightbox.min.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'main/js/main.js' %}"></script>
+
 </body>
+
 </html>
 
