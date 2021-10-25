@@ -12,6 +12,8 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import Group, User
 from .decorators import allowed_users, unauthenticated_user
 from .models import Profile
+from datetime import datetime, timedelta
+import calendar
 
 
 def index(request):
@@ -20,6 +22,14 @@ def index(request):
 
 def get_vacancy(request):
     return render(request, 'main/vacancy.html')
+
+
+def is_student(user):
+    return user.groups.filter(name='Students').exists()
+
+
+def is_mentor(user):
+    return user.groups.filter(name='Mentors').exists()
 
 
 def register(request):
@@ -122,6 +132,32 @@ def profile(request):
         return render(request, 'main/profile-mentor.html', context)
 
 
+def sort_by_week_student(request):
+    one_week_ago = datetime.today() - timedelta(days=7)
+    courses = Course.objects.filter(author=request.user.pk, report_by_date__gte=one_week_ago)
+    context = {
+        'courses': courses,
+    }
+    return render(request, 'main/profile-mentor.html', context)
+
+
+def sort_by_next_week_student(request):
+    one_week_ago = datetime.today() + timedelta(days=7)
+    courses = Course.objects.filter(author=request.user.pk, report_by_date__gte=one_week_ago)
+    context = {
+        'courses': courses,
+    }
+    return render(request, 'main/profile-mentor.html', context)
+
+
+def sort_by_month_student(request):
+    month_ago = datetime.today() - timedelta(days=30)
+    courses = Course.objects.filter(author=request.user.pk, report_by_date__gte=month_ago)
+    context = {
+        'courses': courses,
+    }
+    return render(request, 'main/profile-mentor.html', context)
+
 
 @login_required
 def profiles(request, pk, *args, **kwargs):
@@ -156,15 +192,10 @@ def profiles(request, pk, *args, **kwargs):
         'profile': prof,
         'user': user,
     }
-    return render(request, 'main/userprofile.html', context)
-
-
-def is_student(user):
-    return user.groups.filter(name='Students').exists()
-
-
-def is_mentor(user):
-    return user.groups.filter(name='Mentors').exists()
+    if request.user.groups.filter(name='Students').exists():
+        return render(request, 'main/profile.html', context)
+    else:
+        return render(request, 'main/profile-mentor.html', context)
 
 
 @login_required
