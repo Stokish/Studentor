@@ -1,6 +1,10 @@
+{% extends 'dashboard/create-base.html' %}
 {% load crispy_forms_tags %}
-{% block content %}
 {% load static %}
+{% block title %}
+Create Course
+{% endblock %}
+{% block main_content %}
 <head>
     <meta charset="utf-8">
     <title> Create course </title>
@@ -16,19 +20,10 @@
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Создать курс</legend>
             {{ form|crispy }}
-            <!--    {{ form.subject|as_crispy_field }}  -->
-            <!--    {{ form.image|as_crispy_field }}    -->
-            <!--    {{ form.course_name|as_crispy_field }}  -->
-            <!--    {{ form.description|as_crispy_field }}  -->
-            <!--    {{ form.duration|as_crispy_field }} -->
-            <!--    {{ form.start_time|as_crispy_field }}   -->
-            <!--    {{ form.end_time|as_crispy_field }} -->
-            <!--    {{ form.lesson_type|as_crispy_field }}  -->
-            <!--    {{ form.lesson_url|as_crispy_field }}   -->
         </fieldset>
         <div class="form-group">
             <button class="btn btn-outline-success btn1" type="submit">Создать</button>
         </div>
     </form>
 </div>
-{% endblock content %}
+{% endblock main_content %}
