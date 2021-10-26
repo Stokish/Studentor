@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.postgres.search import SearchVector
 from django.core.mail import send_mail
+from django.db.models import Q
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy, reverse
@@ -57,7 +59,6 @@ class StudentCourseList(ListView):
         self.student = get_object_or_404(User, id=self.request.user.id)
 
         return Course.objects.filter(students__in=[self.student])
-
 
 
 class CourseCreateView(LoginRequiredMixin, CreateView):
@@ -119,6 +120,41 @@ class CourseDirectionListView(ListView):
     model = CourseDirection
     template_name = 'dashboard/course-direction.html'
     context_object_name = "directions"
+
+
+class SearchCourseListView(ListView):
+    model = Course
+    template_name = "dashboard/courses.html"
+    context_object_name = 'courses'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SearchCourseListView, self).get_context_data(
+            *args, **kwargs)
+        query = self.request.GET.get('q')
+        context['search'] = query
+        return context
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        courses = Course.objects.filter(
+            Q(course_name__icontains=query) | Q(description__icontains=query)
+        )
+        context = {
+            'courses': 'courses',
+            'search': query,
+        }
+        return courses
+
+
+class SearchDirectionListView(ListView):
+    model = Course
+    template_name = "dashboard/course-direction.html"
+    context_object_name = 'directions'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        directions = CourseDirection.objects.filter(Q(name__icontains=query))
+        return directions
 
 
 def change_role(request):

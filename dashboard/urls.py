@@ -14,5 +14,7 @@ urlpatterns = [
                   path('my/', StudentCourseList.as_view(), name='my-courses'),
                   path('course/<int:pk>', views.CourseDetailView.as_view(), name='course-detail'),
                   path('course/<slug:key>/apply', views.ApplyCourseRedirectView.as_view(), name='course-apply'),
+                  path('course/search/', views.SearchCourseListView.as_view(), name='course-search'),
+                  path('direction/search/', views.SearchDirectionListView.as_view(), name='direction-search'),
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

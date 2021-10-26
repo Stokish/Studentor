@@ -5,6 +5,7 @@ Courses
 {% block main_content %}
 {% load static %}
 {% load poll_extras %}
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="{% static 'dashboard/css/courses.css' %}" rel="stylesheet">
 
@@ -14,17 +15,28 @@ Courses
       integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
       crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-<section class="d_main ">
+<div class="container">
+
+        <form action="{% url 'course-search' %}" class="search-bar" method="get">
+            <input type="search" name="q" placeholder="Поиск по курсам" required>
+            <button class="search-btn" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+</div>
+
+<section class="d_main align-items-center ">
 
     <div class="container">
-            {% if subject == '' %}
+            {% if subject %}
                 <h3>Курсы по "{{ subject }}"</h3>
+            {% elif search %}
+                <h3>Курсы по запросу "{{ search }}"</h3>
             {% else %}
                 <h3>Мои курсы</h3>
             {% endif %}
 
     </div>
-
     <div class="dash_box align-items-center">
         {% for cc in courses %}
         <div class="dash_card">
@@ -56,11 +68,13 @@ Courses
             </div>
         </div>
         {% endfor %}
-            <button id="more" class="go_" style="margin-left: auto; margin-right: auto"> Показать больше курсов</button>
+    <br>
+        </div>
 
-    </div>
+        <div class="col-md-12 text-center">
+            <button id="more" class="go_" > Показать больше курсов</button>
+        </div>
 
-    </div>
 
 </section>
 {% endblock main_content %}
