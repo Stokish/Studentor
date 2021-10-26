@@ -19,7 +19,14 @@ Dashboard
         </form>
 </div>
     <div class="container">
-        <h1>Направления</h1>
+        {% if search %}
+                {% if directions|length < 1 %}
+                    <h4 style="text-align: center">Простите, мы не нашли подходящих направлений</h4>
+                    {% else %}
+                    <h3 style="text-align: center">Направления по запросу "{{ search }}"</h3>
+
+                {% endif %}
+        {% endif %}
     </div>
     <div class="dash_box container align-items-center ">
     {% for direction in directions %}

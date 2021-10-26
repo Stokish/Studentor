@@ -14,24 +14,33 @@ Courses
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
       integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
       crossorigin="anonymous" referrerpolicy="no-referrer"/>
+{% if subject or search %}
 
-<div class="container">
+    <div class="container">
 
-        <form action="{% url 'course-search' %}" class="search-bar" method="get">
-            <input type="search" name="q" placeholder="Поиск по курсам" required>
-            <button class="search-btn" type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-        </form>
-</div>
+            <form action="{% url 'course-search' %}" class="search-bar" method="get">
+                <input type="search" name="q" placeholder="Поиск по курсам" required>
+                <button class="search-btn" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+
+    </div>
+{% endif %}
+
 
 <section class="d_main align-items-center ">
 
     <div class="container">
-            {% if subject == '' %}
+            {% if subject %}
                 <h3>Курсы по "{{ subject }}"</h3>
             {% elif search %}
-                <h3>Курсы по запросу "{{ search }}"</h3>
+                {% if courses|length < 1 %}
+                    <h4 style="text-align: center">Простите, мы ничего не нашли</h4>
+                    {% else %}
+                    <h3 style="text-align: center">Количество курсов по запросу "{{ search }}": {{ courses|length }}</h3>
+
+                {% endif %}
             {% else %}
                 <h3>Мои курсы</h3>
             {% endif %}
@@ -72,10 +81,9 @@ Courses
         {% endfor %}
     <br>
         </div>
-        <button id="more" class="go_" style="margin-left: auto; margin-right: auto"> Показать больше курсов</button>
 
         <div class="col-md-12 text-center">
-            <button id="more" class="go_" > Показать больше курсов</button>
+            <button id="more" class="go_" style="text-align: center" > Показать больше курсов</button>
         </div>
 
 

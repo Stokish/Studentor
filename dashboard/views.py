@@ -64,8 +64,6 @@ class StudentCourseList(ListView):
         return Course.objects.filter(students__in=[self.student])
 
 
-<<<<<<< HEAD
-=======
 class MentorCourseList(ListView):
     model = Course
     template_name = 'dashboard/courses.html'
@@ -77,7 +75,6 @@ class MentorCourseList(ListView):
         return Course.objects.filter(author=self.author.id)
 
 
->>>>>>> 8c2f3572516288c31e1f77d0652844a9eb0ddf58
 class CourseCreateView(LoginRequiredMixin, CreateView):
     model = Course
     form_class = CourseForm
@@ -203,6 +200,13 @@ class SearchDirectionListView(ListView):
     model = Course
     template_name = "dashboard/course-direction.html"
     context_object_name = 'directions'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SearchDirectionListView, self).get_context_data(
+            *args, **kwargs)
+        query = self.request.GET.get('q')
+        context['search'] = query
+        return context
 
     def get_queryset(self):
         query = self.request.GET.get('q')
