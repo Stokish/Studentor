@@ -4,11 +4,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
-
 urlpatterns = [
                   path('', views.index, name='index'),
                   path('newProfile', views.get_profile, name='new-profile'),
                   path('mentor-profile', views.get_mentor_profile, name='new-mentor-profile'),
+                  path('mentor-profile/week', views.sort_by_week_student, name='week-mm'),
+                  path('mentor-profile/nextweek', views.sort_by_next_week_student, name='next-week-mm'),
+                  path('mentor-profile/month', views.sort_by_month_student, name='month-mm'),
                   path('vacancy', views.get_vacancy, name='get-vacancy'),
                   path('reg', views.register, name='registration'),
                   path('signin', views.login, name='signin'),

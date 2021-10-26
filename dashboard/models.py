@@ -42,6 +42,7 @@ class Course(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='course_author')
     students = models.ManyToManyField(User, related_name='applied_students', blank=True)
     key = models.TextField(blank=True, null=True)
+    report_by_date = models.DateField(null=True)
 
     def save(self, *args, **kwargs):
         super(Course, self).save()
@@ -49,7 +50,6 @@ class Course(models.Model):
         self.key = ''.join(sample(self.key, k=len(self.key)))
         self.key += str(self.pk)
         super(Course, self).save()
-
 
     def __str__(self):
         return self.course_name

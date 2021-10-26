@@ -10,7 +10,6 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
@@ -21,6 +20,7 @@ class Profile(models.Model):
     website = models.URLField(max_length=200)
     followers = models.ManyToManyField(User, blank=True, related_name='followers')
     USER_ROLES = (
+        ('', ''),
         ('student', 'Student'),
         ('mentor', 'Mentor')
     )
@@ -29,7 +29,7 @@ class Profile(models.Model):
         ('Female', 'Female'),
         ('Other', 'Other')
     )
-    user_role = models.CharField(max_length=10, choices=USER_ROLES, default='student')
+    user_role = models.CharField(max_length=10, choices=USER_ROLES, default='')
     gender = models.CharField(max_length=10, choices=GENDER, default='Male')
     date_of_birth = models.DateField(default=datetime.date.today)
     strong_at = models.TextField()

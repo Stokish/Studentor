@@ -1,3 +1,5 @@
+from abc import ABC
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.postgres.search import SearchVector
@@ -27,6 +29,7 @@ from .forms import KeywordForm
 from .forms import DirectionForm
 from .forms import CourseForm
 from .models import CourseDirection, Course
+from datetime import datetime, timedelta
 
 
 class DirectionList(ListView):
@@ -61,6 +64,20 @@ class StudentCourseList(ListView):
         return Course.objects.filter(students__in=[self.student])
 
 
+<<<<<<< HEAD
+=======
+class MentorCourseList(ListView):
+    model = Course
+    template_name = 'dashboard/courses.html'
+    context_object_name = 'courses'
+
+    def get_queryset(self):
+        self.author = get_object_or_404(User, id=self.request.user.id)
+
+        return Course.objects.filter(author=self.author.id)
+
+
+>>>>>>> 8c2f3572516288c31e1f77d0652844a9eb0ddf58
 class CourseCreateView(LoginRequiredMixin, CreateView):
     model = Course
     form_class = CourseForm
@@ -72,6 +89,42 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('course-types')
+
+
+class CourseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
+    model = Course
+    fields = ['image',
+              'course_name',
+              'lesson_cost',
+              'description',
+              'date_lesson',
+              'start_time',
+              'end_time',
+              'duration',
+              'lesson_url', 'max_student']
+    template_name = 'dashboard/createcourse.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        course = self.get_object()
+        if self.request.user == course.author:
+            return True
+        return False
+
+
+class CourseDeleteView(DeleteView, UserPassesTestMixin):
+    model = Course
+    template_name = 'dashboard/confirm-delete.html'
+    success_url = reverse_lazy('deleted')
+
+    def test_func(self):
+        course = self.get_object()
+        if self.request.user == course.author:
+            return True
+        return False
 
 
 class CourseDetailView(DetailView):
@@ -161,6 +214,7 @@ def change_role(request):
     if request.user.groups.filter(name='Students').exists():
         my_group_2 = Group.objects.get(name='Students')
         my_group_2.user_set.remove(request.user)
+    request.user.profile.user_role = 'mentor'
     my_group = Group.objects.get(name='Mentors')
     my_group.user_set.add(request.user)
     return redirect('course-types')

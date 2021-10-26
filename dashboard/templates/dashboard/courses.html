@@ -28,13 +28,14 @@ Courses
 <section class="d_main align-items-center ">
 
     <div class="container">
-            {% if subject %}
+            {% if subject == '' %}
                 <h3>Курсы по "{{ subject }}"</h3>
             {% elif search %}
                 <h3>Курсы по запросу "{{ search }}"</h3>
             {% else %}
                 <h3>Мои курсы</h3>
             {% endif %}
+
 
     </div>
     <div class="dash_box align-items-center">
@@ -48,7 +49,8 @@ Courses
                 <div class="course-desc">
                     <p>{{cc.course_name}}</p>
                 </div>
-                <p class="author_name">Автор: {{cc.author}}</p>
+                <p class="author_name"><a href="{% url 'profilePlace' cc.author.profile.pk %}">Автор:
+                    {{cc.author}}</a></p>
 
                 <div class="link-tags">
                     <a>#C++</a>, <a>#Java</a>
@@ -70,6 +72,7 @@ Courses
         {% endfor %}
     <br>
         </div>
+        <button id="more" class="go_" style="margin-left: auto; margin-right: auto"> Показать больше курсов</button>
 
         <div class="col-md-12 text-center">
             <button id="more" class="go_" > Показать больше курсов</button>
