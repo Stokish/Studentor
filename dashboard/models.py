@@ -1,5 +1,5 @@
 from random import sample
-
+import string
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -49,6 +49,7 @@ class Course(models.Model):
         self.key = self.course_name + self.author.username + str(self.lesson_cost) + self.subject.name
         self.key = ''.join(sample(self.key, k=len(self.key)))
         self.key += str(self.pk)
+        self.key =self.key.translate({ord(c): None for c in string.whitespace})
         super(Course, self).save()
 
     def __str__(self):

@@ -139,23 +139,28 @@ class CourseDetailView(DetailView):
         return data
 
     def post(self, request, *args, **kwargs):
+
         self.object = self.get_object()
-        msg = "Вы хотите записаться на курс " + self.object.course_name + " от " + self.object.author.username + "?\n"
-        msg += "Если да, то перейдите по ссылке: \n"
-        msg += "\t " + "http://127.0.0.1:8000%s" % reverse('course-apply', kwargs={'key': self.object.key}) + "\n"
-        msg += "Если вы передумали и не хотите записываться на данный курс, то проигнорируйте данное письмо"
-        send_mail(
-            subject='Course Application Confirmation email',
-            message=msg,
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[self.request.user.email]
-        )
-        self.email_msg = "Мы отправили письмо на вашу почту! Перейдите по ссылке в письме, чтобы записаться на курс."
+        self.object.students.add(self.request.user)
+        self.object.save()
+        # this is code for email sending
+        # msg = "Вы хотите записаться на курс " + self.object.course_name + " от " + self.object.author.username + "?\n"
+        # msg += "Если да, то перейдите по ссылке: \n"
+        # msg += "\t " + "http://127.0.0.1:8000%s" % reverse('course-apply', kwargs={'key': self.object.key}) + "\n"
+        # msg += "Если вы передумали и не хотите записываться на данный курс, то проигнорируйте данное письмо"
+        # send_mail(
+        #     subject='Course Application Confirmation email',
+        #     message=msg,
+        #     from_email=settings.EMAIL_HOST_USER,
+        #     recipient_list=[self.request.user.email]
+        # )
+        # self.email_msg = "Мы отправили письмо на вашу почту! Перейдите по ссылке в письме, чтобы записаться на курс."
+        self.email_msg = "Вы успешно записались на курс."
         return self.render_to_response(self.get_context_data())
 
 
+# this is used for course link which will be send to email
 class ApplyCourseRedirectView(RedirectView):
-    permanent = False
     query_string = True
     pattern_name = 'course-detail'
 
