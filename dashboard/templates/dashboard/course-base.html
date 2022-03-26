@@ -43,7 +43,7 @@
     </button>
 
     <button>
-        Вакансии
+        <a href="{% url 'mentor-search' %}">Поиск Ментора</a>
     </button>
 
     {% if request.user|has_group:"Students"%}

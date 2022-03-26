@@ -1,3 +1,4 @@
+import logging
 from abc import ABC
 
 from django.conf import settings
@@ -25,6 +26,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView
 from django.contrib.auth.models import Group, User
+
+from users.models import Profile
 from .forms import KeywordForm
 from .forms import DirectionForm
 from .forms import CourseForm
@@ -68,6 +71,11 @@ class MentorCourseList(ListView):
     model = Course
     template_name = 'dashboard/courses.html'
     context_object_name = 'courses'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['created_by_me'] = 'mentor'
+        return data
 
     def get_queryset(self):
         self.author = get_object_or_404(User, id=self.request.user.id)
@@ -227,3 +235,45 @@ def change_role(request):
     my_group = Group.objects.get(name='Mentors')
     my_group.user_set.add(request.user)
     return redirect('course-types')
+
+
+class SearchMentorListView(ListView):
+    model = Profile
+    template_name = "dashboard/mentors.html"
+    context_object_name = 'mentors'
+
+    def valid_query(self, param):
+        if param is None:
+            return ""
+        return param
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SearchMentorListView, self).get_context_data(
+            *args, **kwargs)
+        name_query = self.valid_query(self.request.GET.get('name'))
+        university_q = self.valid_query(self.request.GET.get('uni'))
+        #discipline_q = self.valid_query(self.request.GET.get('disc'))
+        context['name'] = name_query
+        context['university'] = university_q
+        #context['discipline'] = discipline_q
+        return context
+
+    def get_queryset(self):
+        name_query = self.valid_query(self.request.GET.get('name'))
+        university_q = self.valid_query(self.request.GET.get('uni'))
+        print()
+        logging.debug("\033[93m SSSSSSSSSSS" + university_q + "\033[0m")
+
+        discipline_q = self.valid_query(self.request.GET.get('disc'))
+        mentors = Profile.objects.filter(
+            Q(user_role__exact="mentor")
+        )
+
+        mentors = mentors.filter(
+            (Q(user__first_name__icontains=name_query) |
+            Q(user__last_name__icontains=name_query) |
+            Q(user__username__icontains=name_query)) &
+            Q(university__icontains=university_q)
+        )
+
+        return mentors

@@ -1,0 +1,156 @@
+{% extends 'dashboard/course-base.html' %}
+{% block title %}
+Mentors
+{% endblock %}
+{% block main_content %}
+{% load static %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+.search-bar1 input{
+    background: #fff;
+    border-radius: .5em;
+    border-color: #0b5ed7;
+     transform: scale(1);
+    height: 3em;
+    width: 100%;
+}
+input[type="search" i] {
+    appearance: auto;
+    box-sizing: border-box;
+        border-color: #0d6efd;
+
+    padding: 3px 2px;
+}
+.search-bar1 {
+    margin: auto;
+    padding: 1.5em;
+    justify-content: center;
+    max-width: 30em;
+}
+::placeholder {
+   padding: 1em;
+}
+.card1 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="{% static 'dashboard/css/courses.css' %}" rel="stylesheet">
+
+<script src="{% static 'dashboard/js/buttons.js' %}"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <div class="container">
+            <form action="{% url 'mentor-search' %}" method="get">
+
+                <div  class="search-bar1" style="margin-bottom: 0; padding-bottom: 0" >
+                     {% if name  %}
+                         <input type="search" name="name" placeholder="Поиск по имени" value="{{ name }}">
+                     {% else %}
+                         <input type="search" name="name" placeholder="Поиск по имени" >
+                     {% endif %}
+                </div>
+                <div class="search-bar1" style="margin-bottom: 0; padding-bottom: 0">
+                     {% if university  %}
+                         <input type="search" name="uni" placeholder="Поиск по университету" value="{{ university }}">
+
+                     {% else %}
+                         <input type="search" name="uni" placeholder="Поиск по университету">
+
+                     {% endif %}
+
+                </div>
+                <div style="text-align: center; margin-top: 0.5em">
+                    <button class="btn btn-outline-primary" style="margin-top: 1em"  type="submit">
+                        Поиск
+                        <i style="margin-left: 0.4em" class="fa fa-search"></i>
+                    </button>
+                </div>
+            </form>
+    </div>
+
+
+<section class="d_main align-items-center ">
+
+    <div class="container">
+            <h3>
+                {% if name  or university  or discipline %}
+                Менторы
+                        {% if name %}
+                            с именем - "{{ name }}"
+                        {% endif %}
+
+                        {% if university %}
+                            из университета: "{{ university}}"
+                        {% endif %}
+
+                        <!--{% if discipline  %}
+                            по дисциплине "{{ discipline }}"
+                        {% endif %}
+                        !-->
+                {% endif %}
+            </h3>
+
+                {% if mentors|length < 1 %}
+                    <h4 style="text-align: center">Простите, мы ничего не нашли</h4>
+                {% endif %}
+
+    </div>
+    <div class="container">
+        <div class="row gy-4">
+            {% for cc in mentors %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="mentor-card">
+                        <div class="mentor-card-header">
+                            <div class="mentor-avatar">
+                                <img style="height: 10rem; width: 10rem"src="{{cc.image.url }}" alt>
+
+                            </div>
+                        </div>
+                        <div class="mentor-card-body shadow-blue">
+                            <div class="mentor-meta">
+                                <h3 class="username">{{cc.user}}</h3>
+
+                            </div>
+                            <div class="mentor-bio ">
+                                <ul class="mentor-lessons">
+                                    <li>{{ cc.university }} </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="card1">
+                <img style="width:100% "src="{{cc.image.url }}" alt>
+
+                  <h1>{{cc.user}}</h1>
+                  <p>{{ cc.university }}</p>
+
+                </div>!-->
+            {% endfor %}
+
+
+
+
+            </div>
+
+        </div>
+</section>
+
+
+
+        <div class="col-md-12 text-center">
+            <button id="more" class="go_" style="text-align: center" > Показать больше менторов</button>
+        </div>
+
+
+</section>
+{% endblock main_content %}

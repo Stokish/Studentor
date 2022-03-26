@@ -41,6 +41,8 @@ Courses
                     <h3 style="text-align: center">Количество курсов по запросу "{{ search }}": {{ courses|length }}</h3>
 
                 {% endif %}
+            {% elif created_by_me %}
+                    <h3>Созданные мной курсы</h3>
             {% else %}
                 <h3>Мои курсы</h3>
             {% endif %}
